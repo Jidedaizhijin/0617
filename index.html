@@ -1,1 +1,2672 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#171a55" />
 
+  <title>For Your 23</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      font-family:
+        "PingFang SC",
+        "Microsoft YaHei",
+        "Noto Sans SC",
+        system-ui,
+        sans-serif;
+
+      color: #fff;
+      background: #111539;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    #app {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      min-height: 100svh;
+      overflow: hidden;
+
+      background:
+        radial-gradient(circle at 16% 18%,
+          rgba(83, 139, 255, 0.95),
+          transparent 31%),
+
+        radial-gradient(circle at 84% 17%,
+          rgba(192, 89, 255, 0.82),
+          transparent 31%),
+
+        radial-gradient(circle at 48% 83%,
+          rgba(55, 213, 255, 0.67),
+          transparent 37%),
+
+        radial-gradient(circle at 52% 46%,
+          rgba(255,255,255,.08),
+          transparent 25%),
+
+        linear-gradient(
+          145deg,
+          #11173e 0%,
+          #20215a 35%,
+          #482273 67%,
+          #153e74 100%
+        );
+    }
+
+    /* -------------------------
+       背景
+    -------------------------- */
+
+    #fxCanvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 8;
+      pointer-events: none;
+    }
+
+    .mesh {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      opacity: .08;
+
+      background-image:
+        linear-gradient(
+          rgba(255,255,255,.42) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255,255,255,.42) 1px,
+          transparent 1px
+        );
+
+      background-size: 44px 44px;
+
+      mask-image:
+        radial-gradient(
+          circle at center,
+          black 0%,
+          transparent 78%
+        );
+    }
+
+    .vignette {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      pointer-events: none;
+
+      background:
+        radial-gradient(
+          circle at center,
+          transparent 25%,
+          rgba(6,8,31,.13) 62%,
+          rgba(4,7,25,.53) 100%
+        );
+    }
+
+    .nebula {
+      position: absolute;
+      z-index: 3;
+      border-radius: 50%;
+      filter: blur(90px);
+      mix-blend-mode: screen;
+      pointer-events: none;
+
+      animation:
+        nebulaFloat 11s ease-in-out infinite alternate;
+    }
+
+    .nebula.a {
+      width: 48vw;
+      height: 48vw;
+      left: -15vw;
+      top: 10vh;
+
+      background:
+        rgba(112, 155, 255, .50);
+    }
+
+    .nebula.b {
+      width: 43vw;
+      height: 43vw;
+      right: -13vw;
+      top: -10vh;
+
+      background:
+        rgba(209, 100, 255, .42);
+
+      animation-delay: -4s;
+    }
+
+    .nebula.c {
+      width: 40vw;
+      height: 40vw;
+      left: 32vw;
+      bottom: -18vh;
+
+      background:
+        rgba(59, 225, 255, .34);
+
+      animation-delay: -7s;
+    }
+
+    @keyframes nebulaFloat {
+      from {
+        transform:
+          translate3d(-2%, 0, 0)
+          scale(.92);
+      }
+
+      to {
+        transform:
+          translate3d(10%, 8%, 0)
+          scale(1.17);
+      }
+    }
+
+    /* -------------------------
+       屏幕闪光
+    -------------------------- */
+
+    #flash {
+      position: absolute;
+      inset: 0;
+      z-index: 25;
+
+      pointer-events: none;
+
+      opacity: 0;
+
+      background:
+        radial-gradient(
+          circle at var(--flash-x, 50%)
+          var(--flash-y, 50%),
+          rgba(255,255,255,.94) 0%,
+          rgba(177,195,255,.55) 8%,
+          rgba(138,113,255,.23) 23%,
+          transparent 53%
+        );
+    }
+
+    #flash.boom {
+      animation: flashBoom .72s ease-out;
+    }
+
+    @keyframes flashBoom {
+      0% {
+        opacity: 0;
+      }
+
+      10% {
+        opacity: .98;
+      }
+
+      28% {
+        opacity: .55;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    /* -------------------------
+       信封开场
+    -------------------------- */
+
+    #intro {
+      position: absolute;
+      inset: 0;
+
+      z-index: 100;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      padding: 30px;
+
+      background:
+        radial-gradient(
+          circle at center,
+          rgba(58,65,139,.10),
+          rgba(9,12,44,.20)
+        );
+
+      backdrop-filter:
+        blur(2px);
+
+      transition:
+        opacity .8s ease,
+        transform .8s ease;
+    }
+
+    #intro.leave {
+      opacity: 0;
+      transform: scale(1.07);
+      pointer-events: none;
+    }
+
+    .intro-title {
+      font-size: 13px;
+      letter-spacing: .42em;
+
+      margin-bottom: 30px;
+
+      color: rgba(255,255,255,.72);
+    }
+
+    #envelope {
+      position: relative;
+
+      width: 300px;
+      height: 198px;
+
+      max-width: 80vw;
+
+      border: none;
+      outline: none;
+
+      background: none;
+
+      cursor: pointer;
+
+      perspective: 1000px;
+
+      transition:
+        transform .3s ease;
+    }
+
+    #envelope:hover {
+      transform:
+        translateY(-5px)
+        scale(1.02);
+    }
+
+    #envelope:active {
+      transform:
+        scale(.97);
+    }
+
+    .env-back {
+      position: absolute;
+      inset: 0;
+
+      border-radius: 22px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.21);
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255,255,255,.23),
+          rgba(255,255,255,.08)
+        );
+
+      box-shadow:
+        0 30px 80px rgba(0,0,0,.30),
+        0 0 100px rgba(118,124,255,.23);
+
+      backdrop-filter:
+        blur(17px);
+    }
+
+    .env-letter {
+      position: absolute;
+
+      left: 50%;
+      top: 30px;
+
+      width: 220px;
+      height: 126px;
+
+      transform:
+        translateX(-50%);
+
+      border-radius: 14px;
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(255,255,255,.98),
+          rgba(233,240,255,.93)
+        );
+
+      box-shadow:
+        0 16px 40px
+        rgba(25,28,93,.28);
+
+      transition:
+        transform .9s
+        cubic-bezier(.18,.88,.25,1);
+    }
+
+    .env-letter::after {
+      content: "23";
+
+      position: absolute;
+      inset: 0;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color:
+        rgba(86,73,172,.70);
+
+      font-size: 28px;
+
+      letter-spacing: .15em;
+    }
+
+    .env-front {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+
+      width: 100%;
+      height: 61%;
+
+      border-radius:
+        0 0 22px 22px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.26),
+          rgba(255,255,255,.11)
+        );
+
+      clip-path:
+        polygon(
+          0 0,
+          50% 73%,
+          100% 0,
+          100% 100%,
+          0 100%
+        );
+
+      backdrop-filter:
+        blur(18px);
+    }
+
+    .env-flap {
+      position: absolute;
+      inset: 0;
+
+      transform-origin:
+        top center;
+
+      clip-path:
+        polygon(
+          0 0,
+          50% 60%,
+          100% 0,
+          100% 73%,
+          0 73%
+        );
+
+      border-radius:
+        22px 22px 0 0;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.28),
+          rgba(255,255,255,.10)
+        );
+
+      transition:
+        transform .9s
+        cubic-bezier(.18,.86,.24,1),
+        opacity .6s ease;
+    }
+
+    .seal {
+      position: absolute;
+
+      left: 50%;
+      top: 51%;
+
+      transform:
+        translate(-50%,-50%);
+
+      width: 42px;
+      height: 42px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 50%;
+
+      color: #fff;
+
+      font-size: 17px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #7b6cff,
+          #c06cff
+        );
+
+      box-shadow:
+        0 0 30px
+        rgba(150,107,255,.65);
+
+      z-index: 4;
+
+      transition:
+        opacity .4s ease,
+        transform .5s ease;
+    }
+
+    #envelope.open .env-flap {
+      transform:
+        rotateX(180deg);
+
+      opacity: .23;
+    }
+
+    #envelope.open .env-letter {
+      transform:
+        translate(-50%, -75px)
+        scale(1.06);
+    }
+
+    #envelope.open .seal {
+      opacity: 0;
+
+      transform:
+        translate(-50%,-50%)
+        scale(1.6);
+    }
+
+    .intro-hint {
+      margin-top: 30px;
+
+      font-size: 14px;
+
+      color:
+        rgba(255,255,255,.70);
+
+      letter-spacing:
+        .08em;
+
+      animation:
+        hintPulse 1.8s
+        ease-in-out infinite;
+    }
+
+    @keyframes hintPulse {
+      0%,100% {
+        opacity: .45;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+    /* -------------------------
+       正文
+    -------------------------- */
+
+    #story {
+      position: absolute;
+      inset: 0;
+
+      z-index: 20;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      padding:
+        80px 30px 130px;
+
+      text-align: center;
+
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .story-inner {
+      position: relative;
+
+      width: min(
+        760px,
+        90vw
+      );
+    }
+
+    #eyebrow {
+      font-size: 12px;
+
+      letter-spacing: .45em;
+
+      color:
+        rgba(255,255,255,.64);
+
+      margin-bottom: 28px;
+
+      transition:
+        opacity .3s ease;
+    }
+
+    #storyText {
+      min-height: 185px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      font-size:
+        clamp(
+          21px,
+          3vw,
+          36px
+        );
+
+      line-height: 1.9;
+
+      font-weight: 500;
+
+      letter-spacing: .02em;
+
+      white-space: pre-line;
+
+      text-wrap: balance;
+
+      text-shadow:
+        0 0 30px
+        rgba(255,255,255,.12),
+        0 0 80px
+        rgba(133,118,255,.25);
+    }
+
+    .text-enter {
+      display: inline-block;
+
+      animation:
+        textEnter 1s
+        cubic-bezier(.16,.90,.23,1)
+        both;
+    }
+
+    #storyText.out {
+      animation:
+        textLeave .35s ease
+        both;
+    }
+
+    @keyframes textEnter {
+      0% {
+        opacity: 0;
+
+        filter:
+          blur(18px);
+
+        transform:
+          translateY(30px)
+          scale(.92);
+
+        letter-spacing: .1em;
+      }
+
+      48% {
+        opacity: .95;
+
+        filter:
+          blur(4px);
+      }
+
+      100% {
+        opacity: 1;
+
+        filter:
+          blur(0);
+
+        transform:
+          translateY(0)
+          scale(1);
+
+        letter-spacing: .02em;
+      }
+    }
+
+    @keyframes textLeave {
+      to {
+        opacity: 0;
+
+        filter:
+          blur(12px);
+
+        transform:
+          translateY(-18px)
+          scale(1.04);
+      }
+    }
+
+    #continueHint {
+      margin-top: 40px;
+
+      font-size: 13px;
+
+      color:
+        rgba(255,255,255,.56);
+
+      animation:
+        hintPulse 1.9s
+        ease-in-out infinite;
+    }
+
+    /* -------------------------
+       冲击波
+    -------------------------- */
+
+    .ring {
+      position: absolute;
+
+      left: 50%;
+      top: 50%;
+
+      width:
+        min(480px, 64vw);
+
+      aspect-ratio: 1;
+
+      border-radius: 50%;
+
+      border:
+        1px solid
+        rgba(181,185,255,.23);
+
+      opacity: 0;
+
+      pointer-events: none;
+
+      transform:
+        translate(-50%,-50%)
+        scale(.32);
+    }
+
+    .ring.second {
+      width:
+        min(610px, 76vw);
+
+      border-style: dashed;
+
+      border-color:
+        rgba(97,214,255,.20);
+    }
+
+    .ring.third {
+      width:
+        min(340px, 48vw);
+
+      border-color:
+        rgba(255,255,255,.28);
+    }
+
+    .ring.go {
+      animation:
+        shockwave 1.15s
+        ease-out both;
+    }
+
+    @keyframes shockwave {
+      0% {
+        opacity: 0;
+
+        transform:
+          translate(-50%,-50%)
+          scale(.25);
+      }
+
+      20% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+
+        transform:
+          translate(-50%,-50%)
+          scale(1.18);
+      }
+    }
+
+    /* -------------------------
+       黑胶唱机
+    -------------------------- */
+
+    #player {
+      position: absolute;
+
+      right: max(
+        22px,
+        env(safe-area-inset-right)
+      );
+
+      bottom: max(
+        26px,
+        env(safe-area-inset-bottom)
+      );
+
+      z-index: 50;
+
+      transform:
+        rotate(-4deg);
+
+      transition:
+        transform .3s ease,
+        opacity .5s ease;
+
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #player.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #player:hover {
+      transform:
+        rotate(-2deg)
+        translateY(-4px);
+    }
+
+    .player-hint {
+      margin-bottom: 9px;
+
+      padding:
+        7px 12px;
+
+      width: max-content;
+
+      border-radius: 999px;
+
+      font-size: 12px;
+
+      color:
+        rgba(255,255,255,.77);
+
+      background:
+        rgba(255,255,255,.12);
+
+      border:
+        1px solid
+        rgba(255,255,255,.16);
+
+      backdrop-filter:
+        blur(15px);
+
+      box-shadow:
+        0 10px 30px
+        rgba(0,0,0,.12);
+
+      transition:
+        opacity .4s ease,
+        transform .4s ease;
+    }
+
+    .turntable {
+      position: relative;
+
+      width: 166px;
+      height: 132px;
+
+      border: none;
+
+      border-radius: 28px;
+
+      cursor: pointer;
+
+      color: #fff;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.18),
+          rgba(255,255,255,.09)
+        );
+
+      border:
+        1px solid
+        rgba(255,255,255,.17);
+
+      backdrop-filter:
+        blur(19px);
+
+      box-shadow:
+        0 25px 60px
+        rgba(0,0,0,.27),
+        inset 0 1px 0
+        rgba(255,255,255,.18);
+
+      transition:
+        transform .2s ease;
+    }
+
+    .turntable:active {
+      transform:
+        scale(.97);
+    }
+
+    .vinyl {
+      position: absolute;
+
+      left: 16px;
+      top: 18px;
+
+      width: 86px;
+      height: 86px;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle,
+          #0e1024 0 12%,
+          #191c35 13% 25%,
+          #070914 26% 100%
+        );
+
+      box-shadow:
+        0 9px 22px
+        rgba(0,0,0,.32),
+        inset 0 0 0 1px
+        rgba(255,255,255,.06);
+    }
+
+    .vinyl::before {
+      content: "";
+
+      position: absolute;
+      inset: 0;
+
+      border-radius: 50%;
+
+      background:
+        conic-gradient(
+          from 25deg,
+          transparent 0 10%,
+          rgba(255,255,255,.08) 14%,
+          transparent 22% 54%,
+          rgba(255,255,255,.055) 62%,
+          transparent 70%
+        );
+    }
+
+    .vinyl.playing {
+      animation:
+        spin 4.7s
+        linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform:
+          rotate(360deg);
+      }
+    }
+
+    .groove {
+      position: absolute;
+
+      border:
+        1px solid
+        rgba(255,255,255,.055);
+
+      border-radius: 50%;
+    }
+
+    .groove.g1 { inset: 8px; }
+    .groove.g2 { inset: 15px; }
+    .groove.g3 { inset: 22px; }
+    .groove.g4 { inset: 29px; }
+
+    .record-label {
+      position: absolute;
+
+      left: 50%;
+      top: 50%;
+
+      width: 28px;
+      height: 28px;
+
+      border-radius: 50%;
+
+      transform:
+        translate(-50%,-50%);
+
+      background:
+        linear-gradient(
+          135deg,
+          #876aff,
+          #6ed7ff
+        );
+
+      box-shadow:
+        0 0 20px
+        rgba(113,122,255,.45);
+    }
+
+    .record-label::after {
+      content: "";
+
+      position: absolute;
+
+      left: 50%;
+      top: 50%;
+
+      width: 5px;
+      height: 5px;
+
+      transform:
+        translate(-50%,-50%);
+
+      border-radius: 50%;
+
+      background: white;
+    }
+
+    .tonearm {
+      position: absolute;
+
+      right: 17px;
+      top: 17px;
+
+      width: 42px;
+      height: 89px;
+
+      transform-origin:
+        31px 8px;
+
+      transition:
+        transform .7s
+        cubic-bezier(.18,.86,.28,1);
+    }
+
+    .tonearm.playing {
+      transform:
+        rotate(25deg);
+    }
+
+    .arm-base {
+      position: absolute;
+
+      right: 0;
+      top: 0;
+
+      width: 18px;
+      height: 18px;
+
+      border-radius: 50%;
+
+      background:
+        rgba(245,247,255,.93);
+
+      box-shadow:
+        inset 0 0 0 1px
+        rgba(0,0,0,.13);
+    }
+
+    .arm-stick {
+      position: absolute;
+
+      right: 9px;
+      top: 12px;
+
+      width: 3px;
+      height: 67px;
+
+      border-radius: 999px;
+
+      transform:
+        rotate(19deg);
+
+      transform-origin:
+        top center;
+
+      background:
+        linear-gradient(
+          #777c9a,
+          #f4f6ff
+        );
+    }
+
+    .arm-head {
+      position: absolute;
+
+      left: 1px;
+      bottom: 0;
+
+      width: 15px;
+      height: 10px;
+
+      transform:
+        rotate(19deg);
+
+      border-radius: 3px;
+
+      background:
+        #f5f6ff;
+    }
+
+    #musicState {
+      position: absolute;
+
+      right: 14px;
+      bottom: 12px;
+
+      font-size: 10px;
+
+      letter-spacing: .24em;
+
+      color:
+        rgba(255,255,255,.60);
+    }
+
+    /* -------------------------
+       页脚
+    -------------------------- */
+
+    #footerMark {
+      position: absolute;
+
+      left: 50%;
+      bottom:
+        max(
+          18px,
+          env(safe-area-inset-bottom)
+        );
+
+      z-index: 22;
+
+      transform:
+        translateX(-50%);
+
+      font-size: 10px;
+
+      letter-spacing: .34em;
+
+      color:
+        rgba(255,255,255,.38);
+
+      pointer-events: none;
+    }
+
+    /* -------------------------
+       手机适配
+    -------------------------- */
+
+    @media (max-width: 640px) {
+
+      .mesh {
+        background-size:
+          32px 32px;
+      }
+
+      #story {
+        padding:
+          80px 23px 175px;
+      }
+
+      #storyText {
+        min-height: 210px;
+
+        font-size:
+          clamp(
+            20px,
+            5.4vw,
+            26px
+          );
+
+        line-height: 1.95;
+      }
+
+      #eyebrow {
+        font-size: 11px;
+
+        letter-spacing: .34em;
+      }
+
+      #envelope {
+        width: 250px;
+        height: 170px;
+      }
+
+      .env-letter {
+        width: 182px;
+        height: 105px;
+
+        top: 27px;
+      }
+
+      #player {
+        right: 10px;
+        bottom: 14px;
+
+        transform:
+          rotate(-3deg)
+          scale(.88);
+
+        transform-origin:
+          right bottom;
+      }
+
+      #player:hover {
+        transform:
+          rotate(-3deg)
+          scale(.88);
+      }
+
+      .player-hint {
+        font-size: 11px;
+
+        margin-left: auto;
+      }
+
+      #footerMark {
+        bottom: 20px;
+
+        font-size: 9px;
+
+        opacity: .7;
+      }
+    }
+
+    @media (max-width: 380px) {
+
+      #player {
+        transform:
+          rotate(-3deg)
+          scale(.77);
+
+        right: 5px;
+        bottom: 8px;
+      }
+
+      #story {
+        padding-bottom: 150px;
+      }
+
+      #storyText {
+        font-size: 19px;
+      }
+    }
+
+    @media (
+      prefers-reduced-motion:
+      reduce
+    ) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration:
+          .01ms !important;
+
+        animation-iteration-count:
+          1 !important;
+
+        transition-duration:
+          .01ms !important;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+<div id="app">
+
+  <div class="nebula a"></div>
+  <div class="nebula b"></div>
+  <div class="nebula c"></div>
+
+  <div class="mesh"></div>
+  <div class="vignette"></div>
+
+  <canvas id="fxCanvas"></canvas>
+
+  <div id="flash"></div>
+
+
+  <!-- 开场信封 -->
+
+  <section id="intro">
+
+    <p class="intro-title">
+      FOR YOUR 23
+    </p>
+
+    <button
+      id="envelope"
+      aria-label="打开信封"
+    >
+
+      <span class="env-back"></span>
+
+      <span class="env-letter"></span>
+
+      <span class="env-flap"></span>
+
+      <span class="env-front"></span>
+
+      <span class="seal">♡</span>
+
+    </button>
+
+    <p class="intro-hint">
+      点击打开
+    </p>
+
+  </section>
+
+
+  <!-- 正文 -->
+
+  <main id="story">
+
+    <section class="story-inner">
+
+      <div
+        id="ring1"
+        class="ring"
+      ></div>
+
+      <div
+        id="ring2"
+        class="ring second"
+      ></div>
+
+      <div
+        id="ring3"
+        class="ring third"
+      ></div>
+
+      <p id="eyebrow">
+        AUGUST 23
+      </p>
+
+      <div id="storyText">
+        <span class="text-enter">
+          23
+        </span>
+      </div>
+
+      <p id="continueHint">
+        轻触屏幕，继续
+      </p>
+
+    </section>
+
+  </main>
+
+
+  <!-- 黑胶 -->
+
+  <aside id="player">
+
+    <div
+      id="playerHint"
+      class="player-hint"
+    >
+      ♪ 点一下，让故事有声音
+    </div>
+
+    <button
+      id="musicButton"
+      class="turntable"
+      aria-label="播放音乐"
+    >
+
+      <div
+        id="vinyl"
+        class="vinyl"
+      >
+
+        <span class="groove g1"></span>
+        <span class="groove g2"></span>
+        <span class="groove g3"></span>
+        <span class="groove g4"></span>
+
+        <span
+          class="record-label"
+        ></span>
+
+      </div>
+
+      <div
+        id="tonearm"
+        class="tonearm"
+      >
+
+        <span
+          class="arm-base"
+        ></span>
+
+        <span
+          class="arm-stick"
+        ></span>
+
+        <span
+          class="arm-head"
+        ></span>
+
+      </div>
+
+      <span id="musicState">
+        PLAY
+      </span>
+
+    </button>
+
+    <audio
+      id="music"
+      preload="metadata"
+      src="assets/music.mp3"
+    ></audio>
+
+  </aside>
+
+
+  <div id="footerMark">
+    0617 · 0823
+  </div>
+
+</div>
+
+
+<script>
+
+(() => {
+
+  /* =========================
+     这里改文字
+  ========================== */
+
+  const slides = [
+
+    {
+      tag: "AUGUST 23",
+      text: "23"
+    },
+
+    {
+      tag: "关于这一岁",
+      text:
+        "我总觉得，\n" +
+        "23岁是一个很漂亮的年纪。"
+    },
+
+    {
+      tag: "23",
+      text:
+        "已经开始真正走进成年人的世界，\n" +
+        "却还没有必要把所有事情都想明白。"
+    },
+
+    {
+      tag: "给你",
+      text:
+        "可以认真工作，认真生活，\n" +
+        "也可以继续喜欢一些幼稚、浪漫、\n" +
+        "没什么用的小事。"
+    },
+
+    {
+      tag: "给你",
+      text:
+        "希望23岁的你，\n" +
+        "不用总想着自己够不够好，\n" +
+        "也不用急着证明自己能回报谁。"
+    },
+
+    {
+      tag: "给你",
+      text:
+        "希望你想吃什么就去吃，\n" +
+        "困了就好好睡觉。\n" +
+        "工作不顺的时候，\n" +
+        "也不要总是责怪自己。"
+    },
+
+    {
+      tag: "给你",
+      text:
+        "希望你遇到喜欢的东西时，\n" +
+        "还会认真地喜欢；\n" +
+        "遇到喜欢的人时，\n" +
+        "也敢放心一点去喜欢。"
+    },
+
+    {
+      tag: "0617",
+      text:
+        "很高兴，\n" +
+        "我出现在了你的22岁末尾。"
+    },
+
+    {
+      tag: "0823",
+      text:
+        "也很幸运，\n" +
+        "可以陪你走进23岁。"
+    },
+
+    {
+      tag: "如果",
+      text:
+        "如果再回到6月17日，\n" +
+        "我还是会想认识你。"
+    },
+
+    {
+      tag: "但是今天",
+      text:
+        "比起回到过去，\n" +
+        "我更想看看那些\n" +
+        "我们还没有经历过的以后。"
+    },
+
+    {
+      tag: "HAPPY BIRTHDAY",
+      text:
+        "生日快乐。\n\n" +
+        "愿23岁的你，\n" +
+        "自由、勇敢、开心，\n" +
+        "也一直被爱。"
+    },
+
+    {
+      tag: "0617 · 0823",
+      text:
+        "未完待续。"
+    }
+
+  ];
+
+
+  /* =========================
+     DOM
+  ========================== */
+
+  const app =
+    document.getElementById("app");
+
+  const canvas =
+    document.getElementById(
+      "fxCanvas"
+    );
+
+  const ctx =
+    canvas.getContext("2d");
+
+  const intro =
+    document.getElementById(
+      "intro"
+    );
+
+  const envelope =
+    document.getElementById(
+      "envelope"
+    );
+
+  const story =
+    document.getElementById(
+      "story"
+    );
+
+  const eyebrow =
+    document.getElementById(
+      "eyebrow"
+    );
+
+  const storyText =
+    document.getElementById(
+      "storyText"
+    );
+
+  const hint =
+    document.getElementById(
+      "continueHint"
+    );
+
+  const ring1 =
+    document.getElementById(
+      "ring1"
+    );
+
+  const ring2 =
+    document.getElementById(
+      "ring2"
+    );
+
+  const ring3 =
+    document.getElementById(
+      "ring3"
+    );
+
+  const flash =
+    document.getElementById(
+      "flash"
+    );
+
+  const player =
+    document.getElementById(
+      "player"
+    );
+
+  const playerHint =
+    document.getElementById(
+      "playerHint"
+    );
+
+  const musicButton =
+    document.getElementById(
+      "musicButton"
+    );
+
+  const vinyl =
+    document.getElementById(
+      "vinyl"
+    );
+
+  const tonearm =
+    document.getElementById(
+      "tonearm"
+    );
+
+  const musicState =
+    document.getElementById(
+      "musicState"
+    );
+
+  const music =
+    document.getElementById(
+      "music"
+    );
+
+
+  /* =========================
+     状态
+  ========================== */
+
+  let started = false;
+
+  let index = 0;
+
+  let transitioning = false;
+
+  let W = 0;
+  let H = 0;
+  let DPR = 1;
+
+  let stars = [];
+  let dust = [];
+  let comets = [];
+  let bursts = [];
+
+
+  const reducedMotion =
+    window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+
+  /* =========================
+     Canvas
+  ========================== */
+
+  function resizeCanvas() {
+
+    const rect =
+      app.getBoundingClientRect();
+
+    W = rect.width;
+    H = rect.height;
+
+    DPR =
+      Math.min(
+        window.devicePixelRatio || 1,
+        2
+      );
+
+    canvas.width =
+      Math.round(W * DPR);
+
+    canvas.height =
+      Math.round(H * DPR);
+
+    canvas.style.width =
+      W + "px";
+
+    canvas.style.height =
+      H + "px";
+
+    ctx.setTransform(
+      DPR,
+      0,
+      0,
+      DPR,
+      0,
+      0
+    );
+
+    createUniverse();
+
+  }
+
+
+  function createUniverse() {
+
+    const mobile =
+      W < 640;
+
+    const starCount =
+      reducedMotion
+        ? 0
+        : mobile
+          ? 70
+          : 130;
+
+    const dustCount =
+      reducedMotion
+        ? 0
+        : mobile
+          ? 90
+          : 170;
+
+    const cometCount =
+      reducedMotion
+        ? 0
+        : mobile
+          ? 8
+          : 16;
+
+
+    stars =
+      Array.from(
+        { length: starCount },
+        () => ({
+          x: Math.random() * W,
+          y: Math.random() * H,
+
+          r:
+            .5 +
+            Math.random() * 1.8,
+
+          alpha:
+            .15 +
+            Math.random() * .60,
+
+          phase:
+            Math.random() *
+            Math.PI *
+            2,
+
+          vx:
+            (Math.random() - .5)
+            * .08,
+
+          vy:
+            -.02 -
+            Math.random() * .10
+        })
+      );
+
+
+    dust =
+      Array.from(
+        { length: dustCount },
+        () => ({
+          x: Math.random() * W,
+          y: Math.random() * H,
+
+          r:
+            .5 +
+            Math.random() * 2.3,
+
+          alpha:
+            .03 +
+            Math.random() * .14,
+
+          vx:
+            (Math.random() - .5)
+            * .055,
+
+          vy:
+            (Math.random() - .5)
+            * .055,
+
+          color:
+            Math.random() > .5
+              ? "#76d7ff"
+              : "#a881ff"
+        })
+      );
+
+
+    comets =
+      Array.from(
+        { length: cometCount },
+        () => ({
+          x:
+            Math.random() *
+            W,
+
+          y:
+            Math.random() *
+            H,
+
+          len:
+            45 +
+            Math.random() *
+            95,
+
+          angle:
+            -.95 +
+            Math.random() *
+            .42,
+
+          speed:
+            .07 +
+            Math.random() *
+            .16,
+
+          alpha:
+            .04 +
+            Math.random() *
+            .12
+        })
+      );
+
+  }
+
+
+  function makeBurst(
+    x,
+    y,
+    giant = false
+  ) {
+
+    if (
+      reducedMotion
+    ) return;
+
+
+    const mobile =
+      W < 640;
+
+
+    const count =
+      giant
+        ? mobile
+          ? 170
+          : 260
+        : mobile
+          ? 80
+          : 125;
+
+
+    for (
+      let i = 0;
+      i < count;
+      i++
+    ) {
+
+      const angle =
+        Math.random() *
+        Math.PI *
+        2;
+
+      const speed =
+        (giant ? 1.1 : .7) +
+        Math.random() *
+        (giant ? 6.5 : 4.5);
+
+
+      bursts.push({
+
+        x,
+        y,
+
+        vx:
+          Math.cos(angle)
+          * speed,
+
+        vy:
+          Math.sin(angle)
+          * speed,
+
+        life: 1,
+
+        decay:
+          .009 +
+          Math.random() *
+          .019,
+
+        size:
+          .8 +
+          Math.random() *
+          (giant ? 4 : 3),
+
+        color:
+          Math.random() < .34
+            ? "#ffffff"
+            : Math.random() < .5
+              ? "#6edcff"
+              : "#ad83ff",
+
+        type:
+          Math.random() >
+          .75
+            ? "spark"
+            : "dot"
+
+      });
+
+    }
+
+  }
+
+
+  function draw() {
+
+    ctx.clearRect(
+      0,
+      0,
+      W,
+      H
+    );
+
+    const now =
+      performance.now()
+      / 1000;
+
+
+    /* dust */
+
+    for (
+      const p
+      of dust
+    ) {
+
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (
+        p.x < -10
+      ) p.x = W + 10;
+
+      if (
+        p.x > W + 10
+      ) p.x = -10;
+
+      if (
+        p.y < -10
+      ) p.y = H + 10;
+
+      if (
+        p.y > H + 10
+      ) p.y = -10;
+
+
+      ctx.globalAlpha =
+        p.alpha;
+
+      ctx.fillStyle =
+        p.color;
+
+      ctx.beginPath();
+
+      ctx.arc(
+        p.x,
+        p.y,
+        p.r,
+        0,
+        Math.PI * 2
+      );
+
+      ctx.fill();
+
+    }
+
+
+    /* stars */
+
+    for (
+      const s
+      of stars
+    ) {
+
+      s.x += s.vx;
+      s.y += s.vy;
+
+      if (
+        s.y < -8
+      ) {
+
+        s.y =
+          H + 8;
+
+        s.x =
+          Math.random()
+          * W;
+
+      }
+
+
+      const flicker =
+        .50 +
+        .50 *
+        Math.sin(
+          now *
+          1.6 +
+          s.phase
+        );
+
+
+      ctx.globalAlpha =
+        s.alpha *
+        flicker;
+
+      ctx.fillStyle =
+        "#fff";
+
+      ctx.beginPath();
+
+      ctx.arc(
+        s.x,
+        s.y,
+        s.r,
+        0,
+        Math.PI * 2
+      );
+
+      ctx.fill();
+
+    }
+
+
+    /* comets */
+
+    for (
+      const c
+      of comets
+    ) {
+
+      c.x +=
+        Math.cos(
+          c.angle
+        ) *
+        c.speed;
+
+      c.y +=
+        Math.sin(
+          c.angle
+        ) *
+        c.speed;
+
+
+      if (
+        c.x >
+        W + 120 ||
+        c.y <
+        -120
+      ) {
+
+        c.x = -100;
+
+        c.y =
+          H +
+          Math.random()
+          * 180;
+
+      }
+
+
+      const gradient =
+        ctx.createLinearGradient(
+          c.x,
+          c.y,
+          c.x +
+          c.len,
+          c.y -
+          c.len *
+          .55
+        );
+
+
+      gradient.addColorStop(
+        0,
+        "rgba(255,255,255,0)"
+      );
+
+      gradient.addColorStop(
+        .48,
+        "rgba(255,255,255,.85)"
+      );
+
+      gradient.addColorStop(
+        1,
+        "rgba(255,255,255,0)"
+      );
+
+
+      ctx.globalAlpha =
+        c.alpha;
+
+      ctx.strokeStyle =
+        gradient;
+
+      ctx.lineWidth =
+        1.15;
+
+      ctx.beginPath();
+
+      ctx.moveTo(
+        c.x,
+        c.y
+      );
+
+      ctx.lineTo(
+        c.x + c.len,
+        c.y -
+        c.len *
+        .55
+      );
+
+      ctx.stroke();
+
+    }
+
+
+    /* explosions */
+
+    bursts =
+      bursts.filter(
+        p =>
+          p.life > 0
+      );
+
+
+    for (
+      const p
+      of bursts
+    ) {
+
+      p.x += p.vx;
+      p.y += p.vy;
+
+      p.vx *= .979;
+      p.vy *= .979;
+
+      p.life -=
+        p.decay;
+
+
+      ctx.globalAlpha =
+        Math.max(
+          0,
+          p.life
+        );
+
+
+      if (
+        p.type ===
+        "spark"
+      ) {
+
+        ctx.strokeStyle =
+          p.color;
+
+        ctx.lineWidth =
+          1.2;
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+          p.x -
+          p.vx *
+          4,
+          p.y -
+          p.vy *
+          4
+        );
+
+        ctx.lineTo(
+          p.x,
+          p.y
+        );
+
+        ctx.stroke();
+
+      } else {
+
+        ctx.fillStyle =
+          p.color;
+
+        ctx.beginPath();
+
+        ctx.arc(
+          p.x,
+          p.y,
+          p.size,
+          0,
+          Math.PI * 2
+        );
+
+        ctx.fill();
+
+      }
+
+    }
+
+
+    ctx.globalAlpha = 1;
+
+    requestAnimationFrame(
+      draw
+    );
+
+  }
+
+
+  /* =========================
+     爆闪
+  ========================== */
+
+  function flashAt(
+    x,
+    y
+  ) {
+
+    flash.style.setProperty(
+      "--flash-x",
+      `${x / W * 100}%`
+    );
+
+    flash.style.setProperty(
+      "--flash-y",
+      `${y / H * 100}%`
+    );
+
+    flash.classList.remove(
+      "boom"
+    );
+
+    void flash.offsetWidth;
+
+    flash.classList.add(
+      "boom"
+    );
+
+  }
+
+
+  /* =========================
+     冲击波
+  ========================== */
+
+  function ringBlast() {
+
+    [
+      ring1,
+      ring2,
+      ring3
+    ].forEach(
+      el =>
+        el.classList.remove(
+          "go"
+        )
+    );
+
+
+    void ring1.offsetWidth;
+
+
+    ring1.classList.add(
+      "go"
+    );
+
+
+    setTimeout(
+      () =>
+        ring2.classList.add(
+          "go"
+        ),
+      80
+    );
+
+
+    setTimeout(
+      () =>
+        ring3.classList.add(
+          "go"
+        ),
+      155
+    );
+
+  }
+
+
+  /* =========================
+     翻页
+  ========================== */
+
+  function showSlide(
+    newIndex
+  ) {
+
+    if (
+      transitioning
+    ) return;
+
+
+    transitioning =
+      true;
+
+
+    storyText.classList.add(
+      "out"
+    );
+
+    eyebrow.style.opacity =
+      "0";
+
+
+    ringBlast();
+
+
+    setTimeout(
+      () => {
+
+        index =
+          newIndex;
+
+
+        eyebrow.textContent =
+          slides[index].tag;
+
+
+        storyText.innerHTML =
+          `<span class="text-enter">${
+            slides[index]
+              .text
+              .replaceAll(
+                "\n",
+                "<br>"
+              )
+          }</span>`;
+
+
+        storyText.classList.remove(
+          "out"
+        );
+
+
+        eyebrow.style.opacity =
+          "1";
+
+
+        if (
+          index ===
+          slides.length - 1
+        ) {
+
+          hint.textContent =
+            "生日快乐 ♡";
+
+        } else {
+
+          hint.textContent =
+            "轻触屏幕，继续";
+
+        }
+
+
+        setTimeout(
+          () => {
+            transitioning = false;
+          },
+          700
+        );
+
+      },
+      330
+    );
+
+  }
+
+
+  story.addEventListener(
+    "pointerdown",
+    event => {
+
+      if (
+        !started
+      ) return;
+
+
+      const rect =
+        app.getBoundingClientRect();
+
+
+      const x =
+        event.clientX -
+        rect.left;
+
+      const y =
+        event.clientY -
+        rect.top;
+
+
+      makeBurst(
+        x,
+        y,
+        false
+      );
+
+
+      flashAt(
+        x,
+        y
+      );
+
+
+      if (
+        index <
+        slides.length - 1
+      ) {
+
+        showSlide(
+          index + 1
+        );
+
+      } else {
+
+        showSlide(0);
+
+      }
+
+    }
+  );
+
+
+  /* =========================
+     信封
+  ========================== */
+
+  envelope.addEventListener(
+    "click",
+    () => {
+
+      if (
+        started
+      ) return;
+
+
+      started =
+        true;
+
+
+      envelope.classList.add(
+        "open"
+      );
+
+
+      const er =
+        envelope.getBoundingClientRect();
+
+      const ar =
+        app.getBoundingClientRect();
+
+
+      const x =
+        er.left +
+        er.width / 2 -
+        ar.left;
+
+      const y =
+        er.top +
+        er.height / 2 -
+        ar.top;
+
+
+      setTimeout(
+        () => {
+
+          makeBurst(
+            x,
+            y,
+            true
+          );
+
+          flashAt(
+            x,
+            y
+          );
+
+          ringBlast();
+
+        },
+        190
+      );
+
+
+      setTimeout(
+        () => {
+
+          intro.classList.add(
+            "leave"
+          );
+
+        },
+        500
+      );
+
+
+      setTimeout(
+        () => {
+
+          intro.style.display =
+            "none";
+
+          player.classList.add(
+            "show"
+          );
+
+        },
+        1250
+      );
+
+    }
+  );
+
+
+  /* =========================
+     黑胶
+  ========================== */
+
+  function setMusicState(
+    playing
+  ) {
+
+    vinyl.classList.toggle(
+      "playing",
+      playing
+    );
+
+    tonearm.classList.toggle(
+      "playing",
+      playing
+    );
+
+
+    musicState.textContent =
+      playing
+        ? "PAUSE"
+        : "PLAY";
+
+
+    musicButton.setAttribute(
+      "aria-label",
+      playing
+        ? "暂停音乐"
+        : "播放音乐"
+    );
+
+
+    if (
+      playing
+    ) {
+
+      playerHint.style.opacity =
+        "0";
+
+      playerHint.style.transform =
+        "translateY(6px)";
+
+      setTimeout(
+        () => {
+
+          playerHint.style.visibility =
+            "hidden";
+
+        },
+        450
+      );
+
+    }
+
+  }
+
+
+  musicButton.addEventListener(
+    "click",
+    async event => {
+
+      event.stopPropagation();
+
+
+      if (
+        music.paused
+      ) {
+
+        try {
+
+          await music.play();
+
+          setMusicState(
+            true
+          );
+
+        } catch (
+          error
+        ) {
+
+          playerHint.style.visibility =
+            "visible";
+
+          playerHint.style.opacity =
+            "1";
+
+          playerHint.style.transform =
+            "none";
+
+          playerHint.textContent =
+            "请放入 assets/music.mp3";
+
+        }
+
+      } else {
+
+        music.pause();
+
+        setMusicState(
+          false
+        );
+
+      }
+
+    }
+  );
+
+
+  music.addEventListener(
+    "play",
+    () =>
+      setMusicState(
+        true
+      )
+  );
+
+
+  music.addEventListener(
+    "pause",
+    () =>
+      setMusicState(
+        false
+      )
+  );
+
+
+  music.addEventListener(
+    "ended",
+    () =>
+      setMusicState(
+        false
+      )
+  );
+
+
+  /* =========================
+     初始化
+  ========================== */
+
+  resizeCanvas();
+
+  window.addEventListener(
+    "resize",
+    resizeCanvas
+  );
+
+  draw();
+
+})();
+</script>
+
+</body>
+</html>
