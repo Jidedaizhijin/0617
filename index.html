@@ -13,10 +13,6 @@
 <title>For Your 23</title>
 
 <style>
-/* =========================================================
-   RESET
-========================================================= */
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -54,7 +50,7 @@ button,
 
 
 /* =========================================================
-   APP / 宇宙背景
+   APP
 ========================================================= */
 
 #app {
@@ -65,7 +61,6 @@ button,
   height: 100svh;
 
   overflow: hidden;
-
   isolation: isolate;
 
   background:
@@ -109,15 +104,12 @@ button,
 
 .nebula {
   position: absolute;
-
   z-index: 1;
 
   border-radius: 50%;
-
   pointer-events: none;
 
   filter: blur(100px);
-
   mix-blend-mode: screen;
 
   animation:
@@ -187,22 +179,21 @@ button,
 .mesh {
   position: absolute;
   inset: 0;
-
   z-index: 2;
 
-  opacity: .065;
+  opacity: .055;
 
   pointer-events: none;
 
   background-image:
     linear-gradient(
-      rgba(255,255,255,.42) 1px,
+      rgba(255,255,255,.40) 1px,
       transparent 1px
     ),
 
     linear-gradient(
       90deg,
-      rgba(255,255,255,.42) 1px,
+      rgba(255,255,255,.40) 1px,
       transparent 1px
     );
 
@@ -221,15 +212,14 @@ button,
   inset: 0;
 
   z-index: 7;
-
   pointer-events: none;
 
   background:
     radial-gradient(
       circle at center,
       transparent 24%,
-      rgba(4,7,29,.10) 62%,
-      rgba(3,5,22,.50) 100%
+      rgba(4,7,29,.08) 62%,
+      rgba(3,5,22,.44) 100%
     );
 }
 
@@ -251,7 +241,6 @@ button,
 
 #constellationCanvas {
   z-index: 5;
-
   mix-blend-mode: screen;
 }
 
@@ -261,7 +250,7 @@ button,
 
 
 /* =========================================================
-   点击爆闪
+   点击闪光
 ========================================================= */
 
 #flash {
@@ -271,7 +260,6 @@ button,
   z-index: 34;
 
   opacity: 0;
-
   pointer-events: none;
 
   background:
@@ -280,9 +268,9 @@ button,
       var(--flash-x, 50%)
       var(--flash-y, 50%),
 
-      rgba(255,255,255,.98) 0%,
-      rgba(193,215,255,.72) 6%,
-      rgba(155,125,255,.31) 19%,
+      rgba(255,255,255,.96) 0%,
+      rgba(193,215,255,.67) 6%,
+      rgba(155,125,255,.27) 19%,
       transparent 49%
     );
 }
@@ -295,26 +283,15 @@ button,
 }
 
 @keyframes flashBoom {
-  0% {
-    opacity: 0;
-  }
-
-  9% {
-    opacity: .96;
-  }
-
-  28% {
-    opacity: .46;
-  }
-
-  100% {
-    opacity: 0;
-  }
+  0% { opacity: 0; }
+  9% { opacity: .92; }
+  28% { opacity: .42; }
+  100% { opacity: 0; }
 }
 
 
 /* =========================================================
-   开场
+   INTRO
 ========================================================= */
 
 #intro {
@@ -334,11 +311,11 @@ button,
   background:
     radial-gradient(
       circle at center,
-      rgba(100,104,205,.08),
-      rgba(7,10,38,.20)
+      rgba(100,104,205,.07),
+      rgba(7,10,38,.18)
     );
 
-  backdrop-filter: blur(3px);
+  backdrop-filter: blur(2px);
 
   transition:
     opacity .85s ease,
@@ -347,27 +324,23 @@ button,
 
 #intro.leave {
   opacity: 0;
-
-  transform:
-    scale(1.08);
-
+  transform: scale(1.08);
   pointer-events: none;
 }
 
 .intro-title {
-  margin-bottom: 29px;
+  margin-bottom: 30px;
 
-  font-size: 12px;
-
-  letter-spacing: .46em;
+  font-size: 11px;
+  letter-spacing: .48em;
 
   color:
-    rgba(255,255,255,.73);
+    rgba(255,255,255,.65);
 }
 
 
 /* =========================================================
-   玻璃信封
+   纯玻璃信封
 ========================================================= */
 
 #envelope {
@@ -390,7 +363,7 @@ button,
   filter:
     drop-shadow(
       0 30px 42px
-      rgba(7,11,42,.34)
+      rgba(7,11,42,.30)
     );
 
   transition:
@@ -405,8 +378,7 @@ button,
 }
 
 #envelope:active {
-  transform:
-    scale(.97);
+  transform: scale(.97);
 }
 
 
@@ -418,28 +390,28 @@ button,
 
   border:
     1px solid
-    rgba(255,255,255,.30);
+    rgba(255,255,255,.27);
 
   background:
     linear-gradient(
       145deg,
-      rgba(255,255,255,.14),
-      rgba(255,255,255,.045)
+      rgba(255,255,255,.105),
+      rgba(255,255,255,.025)
     );
 
   box-shadow:
     inset 0 1px 0
-    rgba(255,255,255,.20),
+    rgba(255,255,255,.18),
 
     inset 0 -1px 0
-    rgba(125,151,255,.10),
+    rgba(125,151,255,.08),
 
-    0 0 70px
-    rgba(133,115,255,.15);
+    0 0 75px
+    rgba(133,115,255,.13);
 
   backdrop-filter:
-    blur(20px)
-    saturate(145%);
+    blur(13px)
+    saturate(125%);
 }
 
 
@@ -459,53 +431,38 @@ button,
 
   border:
     1px solid
-    rgba(255,255,255,.42);
+    rgba(255,255,255,.27);
 
   background:
     linear-gradient(
       145deg,
-      rgba(255,255,255,.21),
-      rgba(255,255,255,.08)
+      rgba(255,255,255,.085),
+      rgba(255,255,255,.018)
     );
 
   backdrop-filter:
-    blur(18px);
+    blur(11px);
 
   box-shadow:
     inset 0 1px 0
-    rgba(255,255,255,.32),
+    rgba(255,255,255,.18),
 
     0 12px 36px
-    rgba(15,20,68,.20);
+    rgba(15,20,68,.15);
 
   transition:
     transform 1s
     cubic-bezier(.16,.90,.23,1);
 }
 
+
+/*
+  注意：
+  这里已经没有 23
+*/
+
 .env-letter::before {
-  content: "23";
-
-  position: absolute;
-  inset: 0;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  font-size: 34px;
-
-  font-weight: 300;
-
-  letter-spacing: .18em;
-
-  color:
-    rgba(255,255,255,.88);
-
-  text-shadow:
-    0 0 25px
-    rgba(148,129,255,.45);
+  content: "";
 }
 
 
@@ -523,19 +480,19 @@ button,
 
   border:
     1px solid
-    rgba(255,255,255,.22);
+    rgba(255,255,255,.19);
 
   border-top: 0;
 
   background:
     linear-gradient(
       145deg,
-      rgba(255,255,255,.13),
-      rgba(255,255,255,.045)
+      rgba(255,255,255,.09),
+      rgba(255,255,255,.018)
     );
 
   backdrop-filter:
-    blur(18px);
+    blur(11px);
 
   clip-path:
     polygon(
@@ -570,16 +527,16 @@ button,
   background:
     linear-gradient(
       145deg,
-      rgba(255,255,255,.16),
-      rgba(255,255,255,.055)
+      rgba(255,255,255,.105),
+      rgba(255,255,255,.02)
     );
 
   border-top:
     1px solid
-    rgba(255,255,255,.29);
+    rgba(255,255,255,.25);
 
   backdrop-filter:
-    blur(19px);
+    blur(12px);
 
   transition:
     transform .95s
@@ -597,11 +554,11 @@ button,
   pointer-events: none;
 
   background:
-    rgba(255,255,255,.24);
+    rgba(255,255,255,.22);
 
   box-shadow:
-    0 0 10px
-    rgba(148,177,255,.18);
+    0 0 9px
+    rgba(148,177,255,.15);
 }
 
 .env-line.left {
@@ -614,8 +571,7 @@ button,
   transform:
     rotate(-51deg);
 
-  transform-origin:
-    bottom;
+  transform-origin: bottom;
 }
 
 .env-line.right {
@@ -628,12 +584,17 @@ button,
   transform:
     rotate(51deg);
 
-  transform-origin:
-    bottom;
+  transform-origin: bottom;
 }
 
 
-.seal {
+/*
+  不再显示爱心封蜡。
+  留一个几乎看不见的小玻璃节点，
+  只是让结构不至于太空。
+*/
+
+.seal-dot {
   position: absolute;
 
   z-index: 6;
@@ -644,44 +605,25 @@ button,
   transform:
     translate(-50%,-50%);
 
-  width: 45px;
-  height: 45px;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
+  width: 15px;
+  height: 15px;
 
   border-radius: 50%;
 
   border:
     1px solid
-    rgba(255,255,255,.38);
-
-  font-size: 16px;
-
-  color: rgba(255,255,255,.92);
+    rgba(255,255,255,.24);
 
   background:
-    linear-gradient(
-      145deg,
-      rgba(137,105,255,.65),
-      rgba(192,103,255,.43)
-    );
-
-  backdrop-filter:
-    blur(10px);
+    rgba(255,255,255,.055);
 
   box-shadow:
-    0 0 36px
-    rgba(157,111,255,.62),
-
-    inset 0 1px 0
-    rgba(255,255,255,.32);
+    0 0 18px
+    rgba(152,136,255,.25);
 
   transition:
     opacity .4s ease,
-    transform .55s ease;
+    transform .5s ease;
 }
 
 
@@ -689,7 +631,7 @@ button,
   transform:
     rotateX(180deg);
 
-  opacity: .18;
+  opacity: .14;
 }
 
 #envelope.open .env-letter {
@@ -698,24 +640,24 @@ button,
     scale(1.08);
 }
 
-#envelope.open .seal {
+#envelope.open .seal-dot {
   opacity: 0;
 
   transform:
     translate(-50%,-50%)
-    scale(1.8);
+    scale(2);
 }
 
 
 .intro-hint {
   margin-top: 31px;
 
-  font-size: 13px;
+  font-size: 12px;
 
-  letter-spacing: .10em;
+  letter-spacing: .12em;
 
   color:
-    rgba(255,255,255,.67);
+    rgba(255,255,255,.60);
 
   animation:
     breathe
@@ -727,11 +669,11 @@ button,
 @keyframes breathe {
   0%,
   100% {
-    opacity: .42;
+    opacity: .38;
   }
 
   50% {
-    opacity: 1;
+    opacity: .95;
   }
 }
 
@@ -757,7 +699,6 @@ button,
     145px;
 
   opacity: 0;
-
   pointer-events: none;
 
   transition:
@@ -766,13 +707,12 @@ button,
 
 #story.show {
   opacity: 1;
-
   pointer-events: auto;
 }
 
 
 /* =========================================================
-   主玻璃信纸
+   更透明的玻璃信纸
 ========================================================= */
 
 #letterCard {
@@ -809,35 +749,39 @@ button,
 
   border:
     1px solid
-    rgba(255,255,255,.25);
+    rgba(255,255,255,.20);
+
+  /*
+     比上一版明显更透
+  */
 
   background:
     linear-gradient(
       145deg,
-      rgba(255,255,255,.115),
-      rgba(255,255,255,.035)
+      rgba(255,255,255,.067),
+      rgba(255,255,255,.012)
     );
 
   backdrop-filter:
-    blur(22px)
-    saturate(140%);
+    blur(12px)
+    saturate(120%);
 
   -webkit-backdrop-filter:
-    blur(22px)
-    saturate(140%);
+    blur(12px)
+    saturate(120%);
 
   box-shadow:
     inset 0 1px 0
-    rgba(255,255,255,.26),
+    rgba(255,255,255,.18),
 
     inset 0 -1px 0
-    rgba(119,157,255,.08),
+    rgba(119,157,255,.06),
 
     0 28px 90px
-    rgba(5,11,54,.23),
+    rgba(5,11,54,.17),
 
     0 0 100px
-    rgba(126,112,255,.07);
+    rgba(126,112,255,.05);
 
   cursor: pointer;
 
@@ -850,8 +794,6 @@ button,
 }
 
 
-/* 内层玻璃线 */
-
 #letterCard::before {
   content: "";
 
@@ -863,13 +805,11 @@ button,
 
   border:
     1px solid
-    rgba(255,255,255,.075);
+    rgba(255,255,255,.060);
 
   pointer-events: none;
 }
 
-
-/* 信纸折线 */
 
 #letterCard::after {
   content: "";
@@ -882,14 +822,14 @@ button,
   width: 1px;
   height: 140%;
 
-  opacity: .13;
+  opacity: .09;
 
   pointer-events: none;
 
   background:
     linear-gradient(
       transparent,
-      rgba(255,255,255,.85),
+      rgba(255,255,255,.80),
       transparent
     );
 
@@ -904,7 +844,7 @@ button,
   width: 42px;
   height: 42px;
 
-  opacity: .44;
+  opacity: .37;
 
   pointer-events: none;
 }
@@ -916,11 +856,11 @@ button,
   position: absolute;
 
   background:
-    rgba(255,255,255,.45);
+    rgba(255,255,255,.38);
 
   box-shadow:
     0 0 10px
-    rgba(129,178,255,.18);
+    rgba(129,178,255,.15);
 }
 
 .glass-corner::before {
@@ -969,19 +909,18 @@ button,
 
 #eyebrow {
   position: relative;
-
   z-index: 4;
 
   margin-bottom: 27px;
 
-  font-size: 11px;
+  font-size: 10px;
 
   letter-spacing: .48em;
 
   text-transform: uppercase;
 
   color:
-    rgba(235,241,255,.62);
+    rgba(235,241,255,.55);
 
   transition:
     opacity .3s ease;
@@ -994,18 +933,15 @@ button,
   z-index: 4;
 
   width: 100%;
-
   min-height: 190px;
 
   display: flex;
-
   flex-direction: column;
 
   align-items: center;
   justify-content: center;
 
   text-align: center;
-
   text-wrap: balance;
 
   color:
@@ -1052,10 +988,12 @@ button,
 
   animation-delay:
     calc(
-      var(--i) * 150ms
+      var(--i) * 165ms
     );
 }
 
+
+/* 第一页 23 */
 
 #letterCard[data-mode="hero"]
 .story-line {
@@ -1068,7 +1006,7 @@ button,
 
   line-height: 1;
 
-  font-weight: 200;
+  font-weight: 180;
 
   letter-spacing: .08em;
 
@@ -1081,6 +1019,8 @@ button,
 }
 
 
+/* 日期页 */
+
 #letterCard[data-mode="date"]
 .story-line:first-child {
   font-size:
@@ -1090,13 +1030,15 @@ button,
       74px
     );
 
-  font-weight: 250;
+  font-weight: 240;
 
   letter-spacing: .12em;
 
   margin-bottom: 17px;
 }
 
+
+/* 核心句页面更安静 */
 
 #letterCard[data-mode="quiet"]
 .story-line {
@@ -1176,12 +1118,12 @@ button,
 
   white-space: nowrap;
 
-  font-size: 11px;
+  font-size: 10px;
 
-  letter-spacing: .12em;
+  letter-spacing: .14em;
 
   color:
-    rgba(235,240,255,.45);
+    rgba(235,240,255,.39);
 
   animation:
     breathe
@@ -1211,11 +1153,11 @@ button,
 
   border:
     1px solid
-    rgba(255,255,255,.70);
+    rgba(255,255,255,.62);
 
   box-shadow:
     0 0 25px
-    rgba(116,188,255,.30);
+    rgba(116,188,255,.26);
 }
 
 #glassRipple.go {
@@ -1227,7 +1169,7 @@ button,
 
 @keyframes glassRipple {
   0% {
-    opacity: .8;
+    opacity: .7;
 
     transform:
       translate(-50%,-50%)
@@ -1268,7 +1210,7 @@ button,
 
   border:
     1px solid
-    rgba(185,195,255,.18);
+    rgba(185,195,255,.16);
 
   opacity: 0;
 
@@ -1289,7 +1231,7 @@ button,
   border-style: dashed;
 
   border-color:
-    rgba(97,218,255,.16);
+    rgba(97,218,255,.14);
 }
 
 .ring.third {
@@ -1300,7 +1242,7 @@ button,
     );
 
   border-color:
-    rgba(255,255,255,.23);
+    rgba(255,255,255,.20);
 }
 
 .ring.go {
@@ -1320,7 +1262,7 @@ button,
   }
 
   18% {
-    opacity: 1;
+    opacity: .9;
   }
 
   100% {
@@ -1394,24 +1336,24 @@ button,
 
   border:
     1px solid
-    rgba(255,255,255,.16);
+    rgba(255,255,255,.14);
 
   background:
-    rgba(255,255,255,.08);
+    rgba(255,255,255,.06);
 
   backdrop-filter:
-    blur(17px);
+    blur(13px);
 
-  font-size: 11px;
+  font-size: 10px;
 
-  letter-spacing: .04em;
+  letter-spacing: .05em;
 
   color:
-    rgba(255,255,255,.68);
+    rgba(255,255,255,.63);
 
   box-shadow:
     0 10px 35px
-    rgba(2,7,31,.15);
+    rgba(2,7,31,.12);
 
   transition:
     opacity .4s ease,
@@ -1429,32 +1371,32 @@ button,
 
   border:
     1px solid
-    rgba(255,255,255,.20);
+    rgba(255,255,255,.17);
 
   cursor: pointer;
 
   background:
     linear-gradient(
       145deg,
-      rgba(255,255,255,.12),
-      rgba(255,255,255,.035)
+      rgba(255,255,255,.085),
+      rgba(255,255,255,.018)
     );
 
   backdrop-filter:
-    blur(22px)
-    saturate(140%);
+    blur(14px)
+    saturate(125%);
 
   color: white;
 
   box-shadow:
     inset 0 1px 0
-    rgba(255,255,255,.24),
+    rgba(255,255,255,.19),
 
     0 24px 64px
-    rgba(2,7,32,.30),
+    rgba(2,7,32,.26),
 
     0 0 65px
-    rgba(132,114,255,.10);
+    rgba(132,114,255,.08);
 
   transition:
     transform .25s ease;
@@ -1467,12 +1409,9 @@ button,
 }
 
 .turntable:active {
-  transform:
-    scale(.97);
+  transform: scale(.97);
 }
 
-
-/* vinyl */
 
 .vinyl {
   position: absolute;
@@ -1532,8 +1471,7 @@ button,
 
 @keyframes vinylSpin {
   to {
-    transform:
-      rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 
@@ -1553,8 +1491,6 @@ button,
 .g3 { inset: 21px; }
 .g4 { inset: 29px; }
 
-
-/* cover.jpg */
 
 .record-cover {
   position: absolute;
@@ -1612,14 +1548,8 @@ button,
 
   background:
     rgba(255,255,255,.94);
-
-  box-shadow:
-    0 0 3px
-    rgba(0,0,0,.38);
 }
 
-
-/* tonearm */
 
 .tonearm {
   position: absolute;
@@ -1656,17 +1586,10 @@ button,
 
   border:
     1px solid
-    rgba(255,255,255,.30);
+    rgba(255,255,255,.26);
 
   background:
-    rgba(255,255,255,.29);
-
-  backdrop-filter:
-    blur(5px);
-
-  box-shadow:
-    0 0 14px
-    rgba(156,181,255,.14);
+    rgba(255,255,255,.21);
 }
 
 .arm-stick {
@@ -1723,12 +1646,12 @@ button,
   letter-spacing: .25em;
 
   color:
-    rgba(255,255,255,.58);
+    rgba(255,255,255,.56);
 }
 
 
 /* =========================================================
-   FINAL PAGE
+   FINAL
 ========================================================= */
 
 #finalScene {
@@ -1787,28 +1710,28 @@ button,
 
   border:
     1px solid
-    rgba(255,255,255,.24);
+    rgba(255,255,255,.19);
 
   background:
     linear-gradient(
       145deg,
-      rgba(255,255,255,.09),
-      rgba(255,255,255,.018)
+      rgba(255,255,255,.055),
+      rgba(255,255,255,.008)
     );
 
   backdrop-filter:
-    blur(25px)
-    saturate(145%);
+    blur(11px)
+    saturate(120%);
 
   box-shadow:
     inset 0 1px 0
-    rgba(255,255,255,.25),
+    rgba(255,255,255,.18),
 
     0 35px 120px
-    rgba(2,7,35,.25),
+    rgba(2,7,35,.20),
 
     0 0 120px
-    rgba(126,114,255,.08);
+    rgba(126,114,255,.06);
 
   transform:
     translateY(45px)
@@ -1843,7 +1766,7 @@ button,
 
   border:
     1px solid
-    rgba(255,255,255,.07);
+    rgba(255,255,255,.055);
 }
 
 
@@ -1914,36 +1837,25 @@ button,
 @keyframes giantEnter {
   to {
     opacity: 1;
-
-    transform:
-      scale(1);
-
-    filter:
-      blur(0);
+    transform: scale(1);
+    filter: blur(0);
   }
 }
 
 @keyframes giantLeave {
   to {
     opacity: 0;
-
-    transform:
-      scale(1.16);
-
-    filter:
-      blur(16px);
+    transform: scale(1.16);
+    filter: blur(16px);
   }
 }
 
 
 #finalWords {
   position: absolute;
-
   inset: 0;
 
   display: flex;
-
-  flex-direction: column;
 
   align-items: center;
   justify-content: center;
@@ -1953,19 +1865,22 @@ button,
 
 
 #finalLead {
-  margin-bottom: 24px;
+  position: absolute;
+
+  transform:
+    translateY(-78px);
 
   font-size:
     clamp(
-      15px,
+      14px,
       2vw,
-      20px
+      19px
     );
 
   letter-spacing: .12em;
 
   color:
-    rgba(255,255,255,.57);
+    rgba(255,255,255,.52);
 
   opacity: 0;
 
@@ -1988,7 +1903,7 @@ button,
       82px
     );
 
-  font-weight: 280;
+  font-weight: 260;
 
   letter-spacing: .10em;
 
@@ -2028,13 +1943,10 @@ button,
 @keyframes finalWordIn {
   to {
     opacity: 1;
-
     transform:
       translateY(0)
       scale(1);
-
-    filter:
-      blur(0);
+    filter: blur(0);
   }
 }
 
@@ -2046,13 +1958,10 @@ button,
       translateY(-10px)
       scale(1.06);
 
-    filter:
-      blur(8px);
+    filter: blur(8px);
   }
 }
 
-
-/* final message */
 
 #finalMessage {
   opacity: 0;
@@ -2074,7 +1983,7 @@ button,
 
 
 .final-happy {
-  margin-bottom: 31px;
+  margin-bottom: 30px;
 
   font-size:
     clamp(
@@ -2083,7 +1992,7 @@ button,
       65px
     );
 
-  font-weight: 280;
+  font-weight: 260;
 
   letter-spacing: .10em;
 
@@ -2104,32 +2013,47 @@ button,
     clamp(
       16px,
       2.15vw,
-      23px
+      22px
     );
 
-  font-weight: 350;
+  font-weight: 340;
 
-  line-height: 2;
+  line-height: 2.05;
 
   color:
-    rgba(244,247,255,.83);
+    rgba(244,247,255,.82);
+}
+
+
+.final-small {
+  margin-top: 22px;
+
+  font-size:
+    clamp(
+      14px,
+      1.8vw,
+      18px
+    );
+
+  color:
+    rgba(245,247,255,.70);
 }
 
 
 .final-ending {
-  margin-top: 37px;
+  margin-top: 38px;
 
   font-size: 10px;
 
   letter-spacing: .34em;
 
   color:
-    rgba(230,238,255,.43);
+    rgba(230,238,255,.39);
 }
 
 
 /* =========================================================
-   RESPONSIVE
+   MOBILE
 ========================================================= */
 
 @media (max-width: 700px) {
@@ -2138,7 +2062,7 @@ button,
     background-size:
       34px 34px;
 
-    opacity: .05;
+    opacity: .045;
   }
 
   #story {
@@ -2229,7 +2153,7 @@ button,
   #eyebrow {
     font-size: 9px;
 
-    letter-spacing: .37em;
+    letter-spacing: .36em;
   }
 
   #continueHint {
@@ -2285,8 +2209,6 @@ button,
 
   .final-copy {
     font-size: 16px;
-
-    line-height: 2;
   }
 
   .final-ending {
@@ -2391,8 +2313,6 @@ button,
 
 <div id="app">
 
-  <!-- universe -->
-
   <div class="nebula a"></div>
   <div class="nebula b"></div>
   <div class="nebula c"></div>
@@ -2408,9 +2328,7 @@ button,
   <div id="flash"></div>
 
 
-  <!-- =====================================================
-       INTRO
-  ====================================================== -->
+  <!-- INTRO -->
 
   <section id="intro">
 
@@ -2434,9 +2352,7 @@ button,
       <span class="env-line left"></span>
       <span class="env-line right"></span>
 
-      <span class="seal">
-        ♡
-      </span>
+      <span class="seal-dot"></span>
 
     </button>
 
@@ -2447,9 +2363,7 @@ button,
   </section>
 
 
-  <!-- =====================================================
-       STORY GLASS LETTER
-  ====================================================== -->
+  <!-- STORY -->
 
   <main id="story">
 
@@ -2495,9 +2409,7 @@ button,
   </main>
 
 
-  <!-- =====================================================
-       MUSIC
-  ====================================================== -->
+  <!-- MUSIC -->
 
   <aside id="player">
 
@@ -2562,9 +2474,7 @@ button,
   </aside>
 
 
-  <!-- =====================================================
-       FINAL
-  ====================================================== -->
+  <!-- FINAL -->
 
   <section id="finalScene">
 
@@ -2627,14 +2537,20 @@ button,
 
           <div class="final-copy">
 
-            很高兴，
-            我出现在了你的22岁末尾。
+            愿你的23岁，
 
             <br>
 
-            也很幸运，
-            可以陪你走进23岁。
+            有喜欢的人和事，
 
+            <br>
+
+            有期待，也有自由。
+
+          </div>
+
+          <div class="final-small">
+            很高兴认识你。
           </div>
 
           <div class="final-ending">
@@ -2657,12 +2573,6 @@ button,
 
 /* =========================================================
    文案
-
-   mode:
-   hero  = 巨大数字
-   normal = 普通玻璃信纸
-   date   = 日期强调
-   quiet  = 更安静的核心句
 ========================================================= */
 
 const slides = [
@@ -2670,89 +2580,125 @@ const slides = [
   {
     tag: "AUGUST 23",
     mode: "hero",
+
     lines: [
       "23"
     ]
   },
 
+
   {
     tag: "ABOUT 23",
     mode: "normal",
+
     lines: [
       "我总觉得，",
       "23岁是一个很漂亮的年纪。"
     ]
   },
 
+
   {
     tag: "23",
     mode: "normal",
+
     lines: [
-      "已经开始真正走进成年人的世界，",
-      "却还没有必要",
-      "把所有事情都想明白。"
+      "好像已经长大了很多，",
+      "又好像还有很多事情，",
+      "可以慢慢想明白。"
     ]
   },
+
 
   {
     tag: "FOR YOU",
     mode: "normal",
+
     lines: [
-      "可以认真工作，认真生活，",
-      "也可以继续喜欢一些",
-      "幼稚、浪漫、没什么用的小事。"
+      "所以我希望这一岁的你，",
+      "不用急着变得多厉害，",
+      "也不用总觉得自己还不够好。"
     ]
   },
+
 
   {
     tag: "FOR YOU",
     mode: "normal",
-    lines: [
-      "希望23岁的你，",
-      "不用总想着自己够不够好，",
-      "也不用急着证明",
-      "自己能够回报谁。"
-    ]
-  },
 
-  {
-    tag: "FOR YOU",
-    mode: "normal",
     lines: [
-      "希望想吃什么的时候就去吃，",
+      "想吃什么就去吃，",
       "困了就好好睡觉。",
-      "工作不顺的时候，",
-      "也别总是责怪自己。"
+      "遇到不开心的事，",
+      "也允许自己偶尔不那么坚强。"
     ]
   },
+
+
+  {
+    tag: "FOR YOU",
+    mode: "normal",
+
+    lines: [
+      "希望你还是会喜欢",
+      "那些幼稚的、浪漫的、",
+      "好像没什么用的小事。"
+    ]
+  },
+
+
+  {
+    tag: "22 → 23",
+    mode: "quiet",
+
+    lines: [
+      "很高兴，",
+      "我赶上了你的22岁末尾。"
+    ]
+  },
+
+
+  {
+    tag: "23",
+    mode: "quiet",
+
+    lines: [
+      "也很幸运，",
+      "可以看着你走进23岁。"
+    ]
+  },
+
 
   {
     tag: "06 · 17",
     mode: "date",
+
     lines: [
       "06 · 17",
-      "很高兴，",
-      "我出现在了你的22岁末尾。"
-    ]
-  },
-
-  {
-    tag: "IF",
-    mode: "quiet",
-    lines: [
-      "如果再回到6月17日，",
+      "如果再回到那一天，",
       "我还是会想认识你。"
     ]
   },
 
+
   {
-    tag: "BUT TODAY",
+    tag: "TODAY",
     mode: "quiet",
+
     lines: [
-      "但今天是你的生日。",
-      "所以比起回到过去，",
-      "我更希望你的23岁，",
-      "有很多值得期待的以后。"
+      "不过今天，",
+      "我不太想一直回头看了。"
+    ]
+  },
+
+
+  {
+    tag: "FOR YOUR 23",
+    mode: "quiet",
+
+    lines: [
+      "我更想祝你，",
+      "有一个很好很好的23岁。"
     ]
   }
 
@@ -2764,176 +2710,112 @@ const slides = [
 ========================================================= */
 
 const app =
-  document.getElementById(
-    "app"
-  );
+  document.getElementById("app");
 
 const intro =
-  document.getElementById(
-    "intro"
-  );
+  document.getElementById("intro");
 
 const envelope =
-  document.getElementById(
-    "envelope"
-  );
+  document.getElementById("envelope");
 
 const story =
-  document.getElementById(
-    "story"
-  );
+  document.getElementById("story");
 
 const card =
-  document.getElementById(
-    "letterCard"
-  );
+  document.getElementById("letterCard");
 
 const eyebrow =
-  document.getElementById(
-    "eyebrow"
-  );
+  document.getElementById("eyebrow");
 
 const storyText =
-  document.getElementById(
-    "storyText"
-  );
+  document.getElementById("storyText");
 
 const hint =
-  document.getElementById(
-    "continueHint"
-  );
+  document.getElementById("continueHint");
 
 const ripple =
-  document.getElementById(
-    "glassRipple"
-  );
+  document.getElementById("glassRipple");
 
 const ring1 =
-  document.getElementById(
-    "ring1"
-  );
+  document.getElementById("ring1");
 
 const ring2 =
-  document.getElementById(
-    "ring2"
-  );
+  document.getElementById("ring2");
 
 const ring3 =
-  document.getElementById(
-    "ring3"
-  );
+  document.getElementById("ring3");
 
 const flash =
-  document.getElementById(
-    "flash"
-  );
+  document.getElementById("flash");
 
 
-/* player */
+/* MUSIC */
 
 const player =
-  document.getElementById(
-    "player"
-  );
+  document.getElementById("player");
 
 const playerHint =
-  document.getElementById(
-    "playerHint"
-  );
+  document.getElementById("playerHint");
 
 const musicButton =
-  document.getElementById(
-    "musicButton"
-  );
+  document.getElementById("musicButton");
 
 const vinyl =
-  document.getElementById(
-    "vinyl"
-  );
+  document.getElementById("vinyl");
 
 const tonearm =
-  document.getElementById(
-    "tonearm"
-  );
+  document.getElementById("tonearm");
 
 const musicState =
-  document.getElementById(
-    "musicState"
-  );
+  document.getElementById("musicState");
 
 const music =
-  document.getElementById(
-    "music"
-  );
+  document.getElementById("music");
 
 
-/* final */
+/* FINAL */
 
 const finalScene =
-  document.getElementById(
-    "finalScene"
-  );
+  document.getElementById("finalScene");
 
 const finalGlass =
-  document.getElementById(
-    "finalGlass"
-  );
+  document.getElementById("finalGlass");
 
 const giant23 =
-  document.getElementById(
-    "giant23"
-  );
+  document.getElementById("giant23");
 
 const finalLead =
-  document.getElementById(
-    "finalLead"
-  );
+  document.getElementById("finalLead");
 
 const finalMessage =
-  document.getElementById(
-    "finalMessage"
-  );
+  document.getElementById("finalMessage");
 
 const finalWordEls = [
-  document.getElementById(
-    "word1"
-  ),
 
-  document.getElementById(
-    "word2"
-  ),
+  document.getElementById("word1"),
 
-  document.getElementById(
-    "word3"
-  ),
+  document.getElementById("word2"),
 
-  document.getElementById(
-    "word4"
-  )
+  document.getElementById("word3"),
+
+  document.getElementById("word4")
+
 ];
 
 
-/* canvas */
+/* CANVAS */
 
 const fxCanvas =
-  document.getElementById(
-    "fxCanvas"
-  );
+  document.getElementById("fxCanvas");
 
 const fx =
-  fxCanvas.getContext(
-    "2d"
-  );
+  fxCanvas.getContext("2d");
 
 const constellationCanvas =
-  document.getElementById(
-    "constellationCanvas"
-  );
+  document.getElementById("constellationCanvas");
 
 const starCtx =
-  constellationCanvas.getContext(
-    "2d"
-  );
+  constellationCanvas.getContext("2d");
 
 
 /* =========================================================
@@ -2960,8 +2842,8 @@ let collapseParticles = [];
 
 let constellationPulse = 0;
 
-let constellationOpacity = .78;
-let constellationTargetOpacity = .78;
+let constellationOpacity = .84;
+let constellationTargetOpacity = .84;
 
 const reducedMotion =
   window.matchMedia(
@@ -2988,17 +2870,11 @@ function resizeCanvas() {
     );
 
 
-  /* effects */
-
   fxCanvas.width =
-    Math.round(
-      W * DPR
-    );
+    Math.round(W * DPR);
 
   fxCanvas.height =
-    Math.round(
-      H * DPR
-    );
+    Math.round(H * DPR);
 
   fxCanvas.style.width =
     W + "px";
@@ -3016,17 +2892,11 @@ function resizeCanvas() {
   );
 
 
-  /* constellation */
-
   constellationCanvas.width =
-    Math.round(
-      W * DPR
-    );
+    Math.round(W * DPR);
 
   constellationCanvas.height =
-    Math.round(
-      H * DPR
-    );
+    Math.round(H * DPR);
 
   constellationCanvas.style.width =
     W + "px";
@@ -3086,43 +2956,38 @@ function createUniverse() {
   stars =
     Array.from(
       {
-        length:
-          starCount
+        length: starCount
       },
 
       () => ({
 
         x:
-          Math.random()
-          * W,
+          Math.random() * W,
 
         y:
-          Math.random()
-          * H,
+          Math.random() * H,
 
         r:
           .45 +
-          Math.random()
-          * 1.9,
+          Math.random() * 1.9,
 
         alpha:
           .14 +
-          Math.random()
-          * .62,
+          Math.random() * .62,
 
         phase:
-          Math.random()
-          * Math.PI
-          * 2,
+          Math.random() *
+          Math.PI *
+          2,
 
         vx:
-          (Math.random() - .5)
-          * .075,
+          (Math.random() - .5) *
+          .075,
 
         vy:
           -.02 -
-          Math.random()
-          * .09
+          Math.random() *
+          .09
       })
     );
 
@@ -3130,37 +2995,32 @@ function createUniverse() {
   dust =
     Array.from(
       {
-        length:
-          dustCount
+        length: dustCount
       },
 
       () => ({
 
         x:
-          Math.random()
-          * W,
+          Math.random() * W,
 
         y:
-          Math.random()
-          * H,
+          Math.random() * H,
 
         r:
           .45 +
-          Math.random()
-          * 2.3,
+          Math.random() * 2.3,
 
         alpha:
           .025 +
-          Math.random()
-          * .14,
+          Math.random() * .14,
 
         vx:
-          (Math.random() - .5)
-          * .055,
+          (Math.random() - .5) *
+          .055,
 
         vy:
-          (Math.random() - .5)
-          * .055,
+          (Math.random() - .5) *
+          .055,
 
         color:
           Math.random() > .5
@@ -3174,39 +3034,32 @@ function createUniverse() {
   comets =
     Array.from(
       {
-        length:
-          cometCount
+        length: cometCount
       },
 
       () => ({
 
         x:
-          Math.random()
-          * W,
+          Math.random() * W,
 
         y:
-          Math.random()
-          * H,
+          Math.random() * H,
 
         len:
           45 +
-          Math.random()
-          * 100,
+          Math.random() * 100,
 
         angle:
           -.95 +
-          Math.random()
-          * .45,
+          Math.random() * .45,
 
         speed:
           .07 +
-          Math.random()
-          * .14,
+          Math.random() * .14,
 
         alpha:
           .035 +
-          Math.random()
-          * .11
+          Math.random() * .11
       })
     );
 
@@ -3214,7 +3067,7 @@ function createUniverse() {
 
 
 /* =========================================================
-   EXPLOSION
+   EXPLOSIONS
 ========================================================= */
 
 function explode(
@@ -3250,9 +3103,9 @@ function explode(
   ) {
 
     const angle =
-      Math.random()
-      * Math.PI
-      * 2;
+      Math.random() *
+      Math.PI *
+      2;
 
 
     const speed =
@@ -3269,19 +3122,19 @@ function explode(
       y,
 
       vx:
-        Math.cos(angle)
-        * speed,
+        Math.cos(angle) *
+        speed,
 
       vy:
-        Math.sin(angle)
-        * speed,
+        Math.sin(angle) *
+        speed,
 
       life: 1,
 
       decay:
         .008 +
-        Math.random()
-        * .018,
+        Math.random() *
+        .018,
 
       size:
         .7 +
@@ -3308,7 +3161,7 @@ function explode(
 
 
 /* =========================================================
-   FINAL 吸向中心
+   FINAL COLLAPSE
 ========================================================= */
 
 function collapseUniverse() {
@@ -3342,8 +3195,7 @@ function collapseUniverse() {
 
     const side =
       Math.floor(
-        Math.random()
-        * 4
+        Math.random() * 4
       );
 
 
@@ -3355,27 +3207,37 @@ function collapseUniverse() {
       side === 0
     ) {
 
-      x = Math.random() * W;
+      x =
+        Math.random() * W;
+
       y = -20;
 
     } else if (
       side === 1
     ) {
 
-      x = W + 20;
-      y = Math.random() * H;
+      x =
+        W + 20;
+
+      y =
+        Math.random() * H;
 
     } else if (
       side === 2
     ) {
 
-      x = Math.random() * W;
-      y = H + 20;
+      x =
+        Math.random() * W;
+
+      y =
+        H + 20;
 
     } else {
 
       x = -20;
-      y = Math.random() * H;
+
+      y =
+        Math.random() * H;
 
     }
 
@@ -3387,20 +3249,19 @@ function collapseUniverse() {
 
       tx:
         centerX +
-        (Math.random() - .5)
-        * 35,
+        (Math.random() - .5) *
+        35,
 
       ty:
         centerY +
-        (Math.random() - .5)
-        * 35,
+        (Math.random() - .5) *
+        35,
 
       life: 1,
 
       size:
         .8 +
-        Math.random()
-        * 2.8,
+        Math.random() * 2.8,
 
       color:
         Math.random() > .5
@@ -3429,11 +3290,9 @@ function drawFX() {
 
 
   const t =
-    performance.now()
-    / 1000;
+    performance.now() /
+    1000;
 
-
-  /* dust */
 
   for (
     const p
@@ -3487,8 +3346,6 @@ function drawFX() {
   }
 
 
-  /* stars */
-
   for (
     const s
     of stars
@@ -3506,8 +3363,7 @@ function drawFX() {
         H + 8;
 
       s.x =
-        Math.random()
-        * W;
+        Math.random() * W;
     }
 
 
@@ -3515,15 +3371,14 @@ function drawFX() {
       .50 +
       .50 *
       Math.sin(
-        t * 1.55
-        +
+        t * 1.55 +
         s.phase
       );
 
 
     fx.globalAlpha =
-      s.alpha
-      * blink;
+      s.alpha *
+      blink;
 
 
     fx.fillStyle =
@@ -3545,8 +3400,6 @@ function drawFX() {
   }
 
 
-  /* comets */
-
   for (
     const c
     of comets
@@ -3555,32 +3408,27 @@ function drawFX() {
     c.x +=
       Math.cos(
         c.angle
-      )
-      *
+      ) *
       c.speed;
 
 
     c.y +=
       Math.sin(
         c.angle
-      )
-      *
+      ) *
       c.speed;
 
 
     if (
-      c.x > W + 120
-      ||
+      c.x > W + 120 ||
       c.y < -120
     ) {
 
-      c.x =
-        -100;
+      c.x = -100;
 
       c.y =
         H +
-        Math.random()
-        * 180;
+        Math.random() * 180;
 
     }
 
@@ -3641,8 +3489,6 @@ function drawFX() {
   }
 
 
-  /* burst */
-
   bursts =
     bursts.filter(
       p =>
@@ -3673,8 +3519,7 @@ function drawFX() {
 
 
     if (
-      p.type ===
-      "spark"
+      p.type === "spark"
     ) {
 
       fx.strokeStyle =
@@ -3706,6 +3551,7 @@ function drawFX() {
       fx.fillStyle =
         p.color;
 
+
       fx.beginPath();
 
       fx.arc(
@@ -3723,8 +3569,6 @@ function drawFX() {
   }
 
 
-  /* collapse */
-
   collapseParticles =
     collapseParticles.filter(
       p =>
@@ -3738,12 +3582,12 @@ function drawFX() {
   ) {
 
     p.x +=
-      (p.tx - p.x)
-      * .055;
+      (p.tx - p.x) *
+      .055;
 
     p.y +=
-      (p.ty - p.y)
-      * .055;
+      (p.ty - p.y) *
+      .055;
 
     p.life *=
       .982;
@@ -3783,14 +3627,8 @@ function drawFX() {
 
 
 /* =========================================================
-   VIRGO 星图
+   VIRGO
 ========================================================= */
-
-/*
-  视觉化 Virgo 星图。
-  不是天文软件式精确投影，
-  重点是作为页面构图元素。
-*/
 
 const virgoStars = [
 
@@ -3845,11 +3683,9 @@ function drawConstellation() {
 
   constellationOpacity +=
     (
-      constellationTargetOpacity
-      -
+      constellationTargetOpacity -
       constellationOpacity
-    )
-    *
+    ) *
     .03;
 
 
@@ -3859,37 +3695,37 @@ function drawConstellation() {
 
   const mapW =
     mobile
-      ? W * .82
+      ? W * .85
       : Math.min(
-          W * .55,
-          690
+          W * .58,
+          720
         );
 
 
   const mapH =
     mobile
-      ? H * .42
+      ? H * .44
       : Math.min(
-          H * .61,
-          570
+          H * .64,
+          600
         );
 
 
   const offsetX =
     mobile
-      ? W * .02
-      : W * .035;
+      ? W * .015
+      : W * .025;
 
 
   const offsetY =
     mobile
-      ? H * .08
-      : H * .08;
+      ? H * .07
+      : H * .065;
 
 
   const t =
-    performance.now()
-    / 1000;
+    performance.now() /
+    1000;
 
 
   const points =
@@ -3915,8 +3751,6 @@ function drawConstellation() {
     constellationOpacity;
 
 
-  /* lines */
-
   for (
     const [a,b]
     of virgoLines
@@ -3940,17 +3774,17 @@ function drawConstellation() {
 
     g.addColorStop(
       0,
-      "rgba(116,199,255,.10)"
+      "rgba(116,199,255,.12)"
     );
 
     g.addColorStop(
       .5,
-      "rgba(198,177,255,.48)"
+      "rgba(198,177,255,.55)"
     );
 
     g.addColorStop(
       1,
-      "rgba(107,219,255,.11)"
+      "rgba(107,219,255,.13)"
     );
 
 
@@ -3963,11 +3797,11 @@ function drawConstellation() {
 
 
     starCtx.shadowBlur =
-      11;
+      12;
 
 
     starCtx.shadowColor =
-      "rgba(152,173,255,.48)";
+      "rgba(152,173,255,.52)";
 
 
     starCtx.beginPath();
@@ -3987,8 +3821,6 @@ function drawConstellation() {
   }
 
 
-  /* stars */
-
   points.forEach(
     (p,i) => {
 
@@ -3997,14 +3829,12 @@ function drawConstellation() {
         Math.sin(
           t * 1.35 +
           i * .75
-        )
-        *
+        ) *
         .25;
 
 
       const extra =
-        constellationPulse
-        *
+        constellationPulse *
         (
           1 +
           .25 *
@@ -4017,15 +3847,15 @@ function drawConstellation() {
       const radius =
         (
           i === 4
-            ? 3.1
-            : 1.7
+            ? 3.2
+            : 1.8
         )
         +
         extra * 1.3;
 
 
       const glowSize =
-        17 +
+        18 +
         extra * 20;
 
 
@@ -4057,7 +3887,7 @@ function drawConstellation() {
           155,
           195,
           255,
-          ${.70 * pulse}
+          ${.74 * pulse}
         )`
       );
 
@@ -4106,8 +3936,8 @@ function drawConstellation() {
 
 
   starCtx.globalAlpha =
-    constellationOpacity
-    * .44;
+    constellationOpacity *
+    .44;
 
 
   starCtx.font =
@@ -4146,7 +3976,7 @@ function drawConstellation() {
 
 
 /* =========================================================
-   UI EFFECTS
+   UI FX
 ========================================================= */
 
 function flashAt(
@@ -4266,7 +4096,7 @@ function glassWave(
 
 
 /* =========================================================
-   TEXT RENDER
+   SLIDES
 ========================================================= */
 
 function renderSlide(
@@ -4305,7 +4135,7 @@ function renderSlide(
   ) {
 
     hint.textContent =
-      "再点一下";
+      "最后一次";
 
   } else {
 
@@ -4318,7 +4148,7 @@ function renderSlide(
 
 
 /* =========================================================
-   NEXT SLIDE
+   NEXT
 ========================================================= */
 
 function goNext(
@@ -4326,10 +4156,8 @@ function goNext(
 ) {
 
   if (
-    !started
-    ||
-    transitioning
-    ||
+    !started ||
+    transitioning ||
     finaleStarted
   ) return;
 
@@ -4442,7 +4270,7 @@ card.addEventListener(
 
 
 /* =========================================================
-   OPEN ENVELOPE
+   OPEN
 ========================================================= */
 
 envelope.addEventListener(
@@ -4722,8 +4550,13 @@ async function startFinale() {
     "0";
 
 
+  /*
+    最后开始收掉星座，
+    让视觉突然安静。
+  */
+
   constellationTargetOpacity =
-    .20;
+    .16;
 
 
   collapseUniverse();
@@ -4782,12 +4615,16 @@ async function startFinale() {
   await wait(650);
 
 
+  /*
+    巨大的 23
+  */
+
   giant23.classList.add(
     "show"
   );
 
 
-  await wait(1700);
+  await wait(1750);
 
 
   giant23.classList.add(
@@ -4803,22 +4640,26 @@ async function startFinale() {
 
 
   constellationPulse =
-    2.4;
+    2.2;
 
 
-  await wait(760);
+  await wait(780);
 
 
   giant23.style.display =
     "none";
 
 
+  /*
+    四个词
+  */
+
   finalLead.classList.add(
     "show"
   );
 
 
-  await wait(800);
+  await wait(850);
 
 
   for (
@@ -4837,23 +4678,23 @@ async function startFinale() {
 
 
     constellationPulse =
-      1.3;
+      1.15;
 
 
     explode(
       cx +
       (Math.random() - .5)
-      * 60,
+      * 50,
 
       cy +
       (Math.random() - .5)
-      * 40,
+      * 35,
 
       false
     );
 
 
-    await wait(950);
+    await wait(1000);
 
 
     word.classList.add(
@@ -4861,7 +4702,7 @@ async function startFinale() {
     );
 
 
-    await wait(480);
+    await wait(500);
 
   }
 
@@ -4870,7 +4711,7 @@ async function startFinale() {
     "0";
 
 
-  await wait(620);
+  await wait(700);
 
 
   finalWordEls.forEach(
@@ -4883,17 +4724,22 @@ async function startFinale() {
   );
 
 
+  /*
+    最后完全不炸了。
+    安安静静留下这一段。
+  */
+
   finalMessage.classList.add(
     "show"
   );
 
 
   constellationTargetOpacity =
-    .35;
+    .28;
 
 
   constellationPulse =
-    1.2;
+    .8;
 
 }
 
