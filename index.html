@@ -5,18 +5,38 @@
 
 <meta
   name="viewport"
-  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  content="width=device-width,initial-scale=1.0,viewport-fit=cover"
 >
 
-<meta name="theme-color" content="#151843">
+<meta name="theme-color" content="#171946">
 
 <title>For Your 23</title>
 
 <style>
 
 /* =========================================================
-   RESET
+   BASE
 ========================================================= */
+
+:root {
+  --ui:
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Display",
+    "PingFang SC",
+    "Microsoft YaHei",
+    system-ui,
+    sans-serif;
+
+  --hand:
+    "STKaiti",
+    "Kaiti SC",
+    "KaiTi",
+    "楷体",
+    "DFKai-SB",
+    cursive,
+    serif;
+}
 
 * {
   box-sizing: border-box;
@@ -33,25 +53,26 @@ body {
 }
 
 body {
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "PingFang SC",
-    "Microsoft YaHei",
-    system-ui,
-    sans-serif;
+  font-family: var(--ui);
 
   color: #fff;
-  background: #0e1233;
+  background: #0f1437;
+
+  -webkit-font-smoothing: antialiased;
 }
 
 button {
   font: inherit;
 }
 
+button,
+#story {
+  touch-action: manipulation;
+}
+
 
 /* =========================================================
-   APP
+   APP / 星空底色
 ========================================================= */
 
 #app {
@@ -66,41 +87,41 @@ button {
 
   background:
     radial-gradient(
-      circle at 10% 12%,
-      rgba(78, 137, 255, .92),
+      circle at 11% 15%,
+      rgba(82,136,255,.96),
       transparent 29%
     ),
 
     radial-gradient(
-      circle at 86% 15%,
-      rgba(192, 86, 255, .79),
+      circle at 86% 16%,
+      rgba(194,89,255,.85),
       transparent 31%
     ),
 
     radial-gradient(
-      circle at 48% 88%,
-      rgba(49, 218, 255, .54),
+      circle at 50% 86%,
+      rgba(54,214,255,.66),
       transparent 39%
     ),
 
     radial-gradient(
-      circle at 50% 45%,
-      rgba(255,255,255,.055),
-      transparent 27%
+      circle at 50% 44%,
+      rgba(255,255,255,.07),
+      transparent 24%
     ),
 
     linear-gradient(
       145deg,
       #10163c 0%,
-      #202158 34%,
-      #42236f 67%,
-      #143c70 100%
+      #202259 34%,
+      #462474 67%,
+      #153f75 100%
     );
 }
 
 
 /* =========================================================
-   NEBULA
+   星云
 ========================================================= */
 
 .nebula {
@@ -112,11 +133,12 @@ button {
   pointer-events: none;
 
   filter: blur(100px);
+
   mix-blend-mode: screen;
 
   animation:
     nebulaFloat
-    13s
+    12s
     ease-in-out
     infinite
     alternate;
@@ -127,10 +149,10 @@ button {
   height: 48vw;
 
   left: -14vw;
-  top: 5vh;
+  top: 6vh;
 
   background:
-    rgba(105, 150, 255, .44);
+    rgba(107,153,255,.48);
 }
 
 .nebula.b {
@@ -141,20 +163,20 @@ button {
   top: -12vh;
 
   background:
-    rgba(203, 100, 255, .38);
+    rgba(208,102,255,.40);
 
   animation-delay: -4s;
 }
 
 .nebula.c {
-  width: 42vw;
-  height: 42vw;
+  width: 40vw;
+  height: 40vw;
 
-  left: 30vw;
-  bottom: -20vh;
+  left: 32vw;
+  bottom: -19vh;
 
   background:
-    rgba(55, 220, 255, .29);
+    rgba(58,224,255,.33);
 
   animation-delay: -8s;
 }
@@ -162,20 +184,20 @@ button {
 @keyframes nebulaFloat {
   from {
     transform:
-      translate3d(-2%, 0, 0)
+      translate3d(-2%,0,0)
       scale(.92);
   }
 
   to {
     transform:
-      translate3d(10%, 8%, 0)
-      scale(1.16);
+      translate3d(10%,8%,0)
+      scale(1.17);
   }
 }
 
 
 /* =========================================================
-   GRID + VIGNETTE
+   GRID
 ========================================================= */
 
 .mesh {
@@ -184,17 +206,19 @@ button {
 
   z-index: 2;
 
-  opacity: .045;
+  opacity: .05;
+
   pointer-events: none;
 
   background-image:
     linear-gradient(
-      rgba(255,255,255,.34) 1px,
+      rgba(255,255,255,.40) 1px,
       transparent 1px
     ),
+
     linear-gradient(
       90deg,
-      rgba(255,255,255,.34) 1px,
+      rgba(255,255,255,.40) 1px,
       transparent 1px
     );
 
@@ -204,24 +228,7 @@ button {
     radial-gradient(
       circle at center,
       black 0%,
-      transparent 80%
-    );
-}
-
-.vignette {
-  position: absolute;
-  inset: 0;
-
-  z-index: 7;
-
-  pointer-events: none;
-
-  background:
-    radial-gradient(
-      circle at center,
-      transparent 25%,
-      rgba(4,7,29,.06) 62%,
-      rgba(3,5,22,.42) 100%
+      transparent 79%
     );
 }
 
@@ -243,6 +250,7 @@ button {
 
 #constellationCanvas {
   z-index: 5;
+
   mix-blend-mode: screen;
 }
 
@@ -252,7 +260,29 @@ button {
 
 
 /* =========================================================
-   FLASH
+   暗角
+========================================================= */
+
+.vignette {
+  position: absolute;
+  inset: 0;
+
+  z-index: 7;
+
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      circle at center,
+      transparent 24%,
+      rgba(4,7,29,.08) 62%,
+      rgba(3,5,22,.44) 100%
+    );
+}
+
+
+/* =========================================================
+   点击爆闪
 ========================================================= */
 
 #flash {
@@ -262,30 +292,45 @@ button {
   z-index: 34;
 
   opacity: 0;
+
   pointer-events: none;
 
   background:
     radial-gradient(
       circle at
-      var(--flash-x, 50%)
-      var(--flash-y, 50%),
+      var(--flash-x,50%)
+      var(--flash-y,50%),
 
       rgba(255,255,255,.96) 0%,
-      rgba(193,215,255,.68) 6%,
-      rgba(155,125,255,.28) 19%,
+      rgba(193,215,255,.67) 6%,
+      rgba(155,125,255,.27) 19%,
       transparent 49%
     );
 }
 
 #flash.boom {
-  animation: flashBoom .72s ease-out;
+  animation:
+    flashBoom
+    .72s
+    ease-out;
 }
 
 @keyframes flashBoom {
-  0% { opacity: 0; }
-  9% { opacity: .93; }
-  28% { opacity: .43; }
-  100% { opacity: 0; }
+  0% {
+    opacity: 0;
+  }
+
+  9% {
+    opacity: .92;
+  }
+
+  28% {
+    opacity: .42;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
 
 
@@ -310,8 +355,8 @@ button {
   background:
     radial-gradient(
       circle at center,
-      rgba(100,104,205,.06),
-      rgba(7,10,38,.17)
+      rgba(100,104,205,.07),
+      rgba(7,10,38,.18)
     );
 
   backdrop-filter: blur(2px);
@@ -323,23 +368,29 @@ button {
 
 #intro.leave {
   opacity: 0;
-  transform: scale(1.08);
+
+  transform:
+    scale(1.08);
+
   pointer-events: none;
 }
 
 .intro-title {
   margin-bottom: 30px;
 
+  font-family: var(--ui);
+
   font-size: 11px;
+
   letter-spacing: .48em;
 
   color:
-    rgba(255,255,255,.62);
+    rgba(255,255,255,.65);
 }
 
 
 /* =========================================================
-   GLASS ENVELOPE
+   玻璃信封
 ========================================================= */
 
 #envelope {
@@ -362,10 +413,11 @@ button {
   filter:
     drop-shadow(
       0 30px 42px
-      rgba(7,11,42,.28)
+      rgba(7,11,42,.30)
     );
 
-  transition: transform .3s ease;
+  transition:
+    transform .3s ease;
 }
 
 #envelope:hover {
@@ -376,8 +428,10 @@ button {
 }
 
 #envelope:active {
-  transform: scale(.97);
+  transform:
+    scale(.97);
 }
+
 
 .env-back {
   position: absolute;
@@ -387,29 +441,30 @@ button {
 
   border:
     1px solid
-    rgba(255,255,255,.25);
+    rgba(255,255,255,.27);
 
   background:
     linear-gradient(
       145deg,
-      rgba(255,255,255,.09),
-      rgba(255,255,255,.018)
+      rgba(255,255,255,.090),
+      rgba(255,255,255,.016)
     );
 
   box-shadow:
     inset 0 1px 0
-    rgba(255,255,255,.16),
+    rgba(255,255,255,.18),
 
     inset 0 -1px 0
-    rgba(125,151,255,.06),
+    rgba(125,151,255,.08),
 
     0 0 75px
-    rgba(133,115,255,.12);
+    rgba(133,115,255,.13);
 
   backdrop-filter:
-    blur(11px)
+    blur(10px)
     saturate(120%);
 }
+
 
 .env-letter {
   position: absolute;
@@ -420,7 +475,8 @@ button {
   width: 226px;
   height: 130px;
 
-  transform: translateX(-50%);
+  transform:
+    translateX(-50%);
 
   border-radius: 16px;
 
@@ -431,23 +487,25 @@ button {
   background:
     linear-gradient(
       145deg,
-      rgba(255,255,255,.065),
-      rgba(255,255,255,.010)
+      rgba(255,255,255,.055),
+      rgba(255,255,255,.008)
     );
 
-  backdrop-filter: blur(8px);
+  backdrop-filter:
+    blur(7px);
 
   box-shadow:
     inset 0 1px 0
-    rgba(255,255,255,.14),
+    rgba(255,255,255,.15),
 
     0 12px 36px
-    rgba(15,20,68,.13);
+    rgba(15,20,68,.14);
 
   transition:
     transform 1s
     cubic-bezier(.16,.90,.23,1);
 }
+
 
 .env-front {
   position: absolute;
@@ -463,18 +521,19 @@ button {
 
   border:
     1px solid
-    rgba(255,255,255,.18);
+    rgba(255,255,255,.19);
 
   border-top: 0;
 
   background:
     linear-gradient(
       145deg,
-      rgba(255,255,255,.075),
-      rgba(255,255,255,.012)
+      rgba(255,255,255,.070),
+      rgba(255,255,255,.010)
     );
 
-  backdrop-filter: blur(9px);
+  backdrop-filter:
+    blur(8px);
 
   clip-path:
     polygon(
@@ -486,11 +545,13 @@ button {
     );
 }
 
+
 .env-flap {
   position: absolute;
   inset: 0;
 
-  transform-origin: top center;
+  transform-origin:
+    top center;
 
   clip-path:
     polygon(
@@ -507,21 +568,24 @@ button {
   background:
     linear-gradient(
       145deg,
-      rgba(255,255,255,.085),
-      rgba(255,255,255,.014)
+      rgba(255,255,255,.080),
+      rgba(255,255,255,.012)
     );
 
   border-top:
     1px solid
-    rgba(255,255,255,.22);
+    rgba(255,255,255,.24);
 
-  backdrop-filter: blur(9px);
+  backdrop-filter:
+    blur(8px);
 
   transition:
     transform .95s
     cubic-bezier(.18,.86,.24,1),
+
     opacity .6s ease;
 }
+
 
 .env-line {
   position: absolute;
@@ -533,11 +597,11 @@ button {
   pointer-events: none;
 
   background:
-    rgba(255,255,255,.19);
+    rgba(255,255,255,.22);
 
   box-shadow:
     0 0 9px
-    rgba(148,177,255,.14);
+    rgba(148,177,255,.15);
 }
 
 .env-line.left {
@@ -546,8 +610,11 @@ button {
   left: 78px;
   bottom: 5px;
 
-  transform: rotate(-51deg);
-  transform-origin: bottom;
+  transform:
+    rotate(-51deg);
+
+  transform-origin:
+    bottom;
 }
 
 .env-line.right {
@@ -556,12 +623,18 @@ button {
   right: 78px;
   bottom: 5px;
 
-  transform: rotate(51deg);
-  transform-origin: bottom;
+  transform:
+    rotate(51deg);
+
+  transform-origin:
+    bottom;
 }
 
+
 #envelope.open .env-flap {
-  transform: rotateX(180deg);
+  transform:
+    rotateX(180deg);
+
   opacity: .12;
 }
 
@@ -571,14 +644,18 @@ button {
     scale(1.08);
 }
 
+
 .intro-hint {
   margin-top: 31px;
 
+  font-family: var(--ui);
+
   font-size: 12px;
+
   letter-spacing: .12em;
 
   color:
-    rgba(255,255,255,.58);
+    rgba(255,255,255,.60);
 
   animation:
     breathe
@@ -590,7 +667,7 @@ button {
 @keyframes breathe {
   0%,
   100% {
-    opacity: .36;
+    opacity: .38;
   }
 
   50% {
@@ -620,13 +697,16 @@ button {
     145px;
 
   opacity: 0;
+
   pointer-events: none;
 
-  transition: opacity 1s ease;
+  transition:
+    opacity 1s ease;
 }
 
 #story.show {
   opacity: 1;
+
   pointer-events: auto;
 }
 
@@ -701,13 +781,13 @@ button {
   cursor: pointer;
 
   user-select: none;
-  touch-action: manipulation;
 
   transition:
     transform .45s ease,
     opacity .45s ease,
     filter .45s ease;
 }
+
 
 #letterCard::before {
   content: "";
@@ -724,6 +804,7 @@ button {
 
   pointer-events: none;
 }
+
 
 #letterCard::after {
   content: "";
@@ -747,9 +828,14 @@ button {
       transparent
     );
 
-  transform: rotate(37deg);
+  transform:
+    rotate(37deg);
 }
 
+
+/* =========================================================
+   GLASS CORNERS
+========================================================= */
 
 .glass-corner {
   position: absolute;
@@ -795,26 +881,29 @@ button {
   right: 24px;
   top: 24px;
 
-  transform: rotate(90deg);
+  transform:
+    rotate(90deg);
 }
 
 .glass-corner.bl {
   left: 24px;
   bottom: 24px;
 
-  transform: rotate(-90deg);
+  transform:
+    rotate(-90deg);
 }
 
 .glass-corner.br {
   right: 24px;
   bottom: 24px;
 
-  transform: rotate(180deg);
+  transform:
+    rotate(180deg);
 }
 
 
 /* =========================================================
-   STORY TEXT
+   TEXT
 ========================================================= */
 
 #eyebrow {
@@ -824,21 +913,18 @@ button {
 
   margin-bottom: 27px;
 
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "SF Pro Display",
-    "PingFang SC",
-    sans-serif;
+  font-family: var(--ui);
 
   font-size: 10px;
+
+  font-weight: 400;
 
   letter-spacing: .48em;
 
   text-transform: uppercase;
 
   color:
-    rgba(235,241,255,.54);
+    rgba(235,241,255,.55);
 
   transition:
     opacity .3s ease;
@@ -860,6 +946,7 @@ button {
   justify-content: center;
 
   text-align: center;
+  text-wrap: balance;
 
   color:
     rgba(255,255,255,.94);
@@ -867,7 +954,9 @@ button {
 
 
 /*
-  手写信正文
+  手写正文
+
+  保留之前更舒服的字号 / 行距 / 字距。
 */
 
 .story-line {
@@ -882,32 +971,27 @@ button {
     blur(8px);
 
   font-family:
-    "Kaiti SC",
-    "STKaiti",
-    "KaiTi",
-    "楷体",
-    "DFKai-SB",
-    serif;
+    var(--hand);
 
   font-size:
     clamp(
-      21px,
-      2.55vw,
-      32px
+      20px,
+      2.45vw,
+      31px
     );
 
   line-height: 1.95;
 
   font-weight: 400;
 
-  letter-spacing: .065em;
+  letter-spacing: .025em;
 
   text-shadow:
-    0 0 16px
-    rgba(255,255,255,.10),
+    0 0 18px
+    rgba(255,255,255,.09),
 
-    0 0 46px
-    rgba(145,128,255,.17);
+    0 0 48px
+    rgba(145,128,255,.16);
 
   animation:
     lineIn
@@ -922,23 +1006,15 @@ button {
 }
 
 
-/* 23 */
+/* 第一页 23 */
 
 #letterCard[data-mode="hero"]
 .story-line {
-  font-family:
-    "Kaiti SC",
-    "STKaiti",
-    "KaiTi",
-    "楷体",
-    "DFKai-SB",
-    serif;
-
   font-size:
     clamp(
-      82px,
+      76px,
       13vw,
-      155px
+      150px
     );
 
   line-height: 1;
@@ -949,14 +1025,14 @@ button {
 
   text-shadow:
     0 0 35px
-    rgba(255,255,255,.23),
+    rgba(255,255,255,.25),
 
     0 0 100px
-    rgba(142,115,255,.36);
+    rgba(142,115,255,.38);
 }
 
 
-/* 日期 */
+/* 日期页 */
 
 #letterCard[data-mode="date"]
 .story-line:first-child {
@@ -969,19 +1045,21 @@ button {
       74px
     );
 
+  line-height: 1.15;
+
   font-weight: 300;
 
   letter-spacing: .12em;
 }
 
 
-/* 安静页面 */
+/* 安静页 */
 
 #letterCard[data-mode="quiet"]
 .story-line {
   font-weight: 400;
 
-  letter-spacing: .075em;
+  letter-spacing: .03em;
 }
 
 
@@ -993,13 +1071,15 @@ button {
       translateY(20px)
       scale(.97);
 
-    filter: blur(11px);
+    filter:
+      blur(11px);
   }
 
   65% {
     opacity: .95;
 
-    filter: blur(2px);
+    filter:
+      blur(2px);
   }
 
   100% {
@@ -1009,7 +1089,8 @@ button {
       translateY(0)
       scale(1);
 
-    filter: blur(0);
+    filter:
+      blur(0);
   }
 }
 
@@ -1017,7 +1098,8 @@ button {
 #letterCard.leaving {
   opacity: 0;
 
-  filter: blur(11px);
+  filter:
+    blur(11px);
 
   transform:
     translateY(-14px)
@@ -1028,7 +1110,8 @@ button {
 #letterCard.shatter {
   opacity: 0;
 
-  filter: blur(15px);
+  filter:
+    blur(15px);
 
   transform:
     scale(1.10)
@@ -1050,19 +1133,14 @@ button {
 
   white-space: nowrap;
 
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "SF Pro Display",
-    "PingFang SC",
-    sans-serif;
+  font-family: var(--ui);
 
   font-size: 10px;
 
   letter-spacing: .14em;
 
   color:
-    rgba(235,240,255,.38);
+    rgba(235,240,255,.39);
 
   animation:
     breathe
@@ -1092,11 +1170,11 @@ button {
 
   border:
     1px solid
-    rgba(255,255,255,.60);
+    rgba(255,255,255,.62);
 
   box-shadow:
     0 0 25px
-    rgba(116,188,255,.25);
+    rgba(116,188,255,.26);
 }
 
 #glassRipple.go {
@@ -1149,7 +1227,7 @@ button {
 
   border:
     1px solid
-    rgba(185,195,255,.15);
+    rgba(185,195,255,.16);
 
   opacity: 0;
 
@@ -1170,7 +1248,7 @@ button {
   border-style: dashed;
 
   border-color:
-    rgba(97,218,255,.13);
+    rgba(97,218,255,.14);
 }
 
 .ring.third {
@@ -1181,7 +1259,7 @@ button {
     );
 
   border-color:
-    rgba(255,255,255,.19);
+    rgba(255,255,255,.20);
 }
 
 .ring.go {
@@ -1275,7 +1353,7 @@ button {
 
   border:
     1px solid
-    rgba(255,255,255,.13);
+    rgba(255,255,255,.14);
 
   background:
     rgba(255,255,255,.05);
@@ -1283,22 +1361,18 @@ button {
   backdrop-filter:
     blur(11px);
 
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "PingFang SC",
-    sans-serif;
+  font-family: var(--ui);
 
   font-size: 10px;
 
   letter-spacing: .05em;
 
   color:
-    rgba(255,255,255,.62);
+    rgba(255,255,255,.63);
 
   box-shadow:
     0 10px 35px
-    rgba(2,7,31,.11);
+    rgba(2,7,31,.12);
 
   transition:
     opacity .4s ease,
@@ -1343,7 +1417,8 @@ button {
     0 0 65px
     rgba(132,114,255,.07);
 
-  transition: transform .25s ease;
+  transition:
+    transform .25s ease;
 }
 
 .turntable:hover {
@@ -1353,11 +1428,14 @@ button {
 }
 
 .turntable:active {
-  transform: scale(.97);
+  transform:
+    scale(.97);
 }
 
 
-/* record */
+/* =========================================================
+   VINYL
+========================================================= */
 
 .vinyl {
   position: absolute;
@@ -1417,7 +1495,8 @@ button {
 
 @keyframes vinylSpin {
   to {
-    transform: rotate(360deg);
+    transform:
+      rotate(360deg);
   }
 }
 
@@ -1472,6 +1551,8 @@ button {
   object-fit: cover;
 
   pointer-events: none;
+
+  user-select: none;
 }
 
 .record-cover::after {
@@ -1495,7 +1576,9 @@ button {
 }
 
 
-/* tonearm */
+/* =========================================================
+   TONEARM
+========================================================= */
 
 .tonearm {
   position: absolute;
@@ -1515,7 +1598,8 @@ button {
 }
 
 .tonearm.playing {
-  transform: rotate(25deg);
+  transform:
+    rotate(25deg);
 }
 
 .arm-base {
@@ -1546,8 +1630,11 @@ button {
   width: 3px;
   height: 67px;
 
-  transform: rotate(19deg);
-  transform-origin: top center;
+  transform:
+    rotate(19deg);
+
+  transform-origin:
+    top center;
 
   border-radius: 999px;
 
@@ -1569,7 +1656,8 @@ button {
 
   border-radius: 3px;
 
-  transform: rotate(19deg);
+  transform:
+    rotate(19deg);
 
   background:
     rgba(244,247,255,.94);
@@ -1582,22 +1670,19 @@ button {
   right: 15px;
   bottom: 12px;
 
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    sans-serif;
+  font-family: var(--ui);
 
   font-size: 9px;
 
   letter-spacing: .25em;
 
   color:
-    rgba(255,255,255,.54);
+    rgba(255,255,255,.56);
 }
 
 
 /* =========================================================
-   FINAL SCENE
+   FINAL
 ========================================================= */
 
 #finalScene {
@@ -1620,7 +1705,8 @@ button {
 
   pointer-events: none;
 
-  transition: opacity 1.1s ease;
+  transition:
+    opacity 1.1s ease;
 }
 
 #finalScene.show {
@@ -1677,11 +1763,11 @@ button {
     0 0 120px
     rgba(126,114,255,.05);
 
+  opacity: 0;
+
   transform:
     translateY(45px)
     scale(.96);
-
-  opacity: 0;
 
   transition:
     transform 1.25s
@@ -1720,7 +1806,6 @@ button {
   z-index: 3;
 
   width: 100%;
-  height: 100%;
 
   min-height:
     clamp(
@@ -1728,38 +1813,31 @@ button {
       60vh,
       580px
     );
+
+  text-align: center;
 }
 
 
-#giant23,
-#finalWords,
-#finalMessage {
-  position: absolute;
-  inset: 0;
-}
-
-
-/* giant 23 */
+/* =========================================================
+   FINAL 23
+========================================================= */
 
 #giant23 {
+  position: absolute;
+  inset: 0;
+
   display: flex;
 
   align-items: center;
   justify-content: center;
 
-  font-family:
-    "Kaiti SC",
-    "STKaiti",
-    "KaiTi",
-    "楷体",
-    "DFKai-SB",
-    serif;
+  font-family: var(--hand);
 
   font-size:
     clamp(
-      115px,
+      110px,
       20vw,
-      225px
+      220px
     );
 
   line-height: .9;
@@ -1780,9 +1858,11 @@ button {
 
   opacity: 0;
 
-  transform: scale(.76);
+  transform:
+    scale(.76);
 
-  filter: blur(18px);
+  filter:
+    blur(18px);
 }
 
 #giant23.show {
@@ -1805,9 +1885,11 @@ button {
   to {
     opacity: 1;
 
-    transform: scale(1);
+    transform:
+      scale(1);
 
-    filter: blur(0);
+    filter:
+      blur(0);
   }
 }
 
@@ -1815,19 +1897,24 @@ button {
   to {
     opacity: 0;
 
-    transform: scale(1.16);
+    transform:
+      scale(1.16);
 
-    filter: blur(16px);
+    filter:
+      blur(16px);
   }
 }
 
 
-/* final keywords */
+/* =========================================================
+   FINAL WORDS
+========================================================= */
 
 #finalWords {
-  display: flex;
+  position: absolute;
+  inset: 0;
 
-  flex-direction: column;
+  display: flex;
 
   align-items: center;
   justify-content: center;
@@ -1840,31 +1927,28 @@ button {
   position: absolute;
 
   transform:
-    translateY(-82px);
+    translateY(-78px);
 
-  font-family:
-    "Kaiti SC",
-    "STKaiti",
-    "KaiTi",
-    "楷体",
-    "DFKai-SB",
-    serif;
+  font-family: var(--hand);
 
   font-size:
     clamp(
-      16px,
+      14px,
       2vw,
-      21px
+      19px
     );
 
-  letter-spacing: .11em;
+  font-weight: 400;
+
+  letter-spacing: .08em;
 
   color:
-    rgba(255,255,255,.59);
+    rgba(255,255,255,.56);
 
   opacity: 0;
 
-  transition: opacity .7s ease;
+  transition:
+    opacity .7s ease;
 }
 
 #finalLead.show {
@@ -1875,24 +1959,18 @@ button {
 .final-word {
   position: absolute;
 
-  font-family:
-    "Kaiti SC",
-    "STKaiti",
-    "KaiTi",
-    "楷体",
-    "DFKai-SB",
-    serif;
+  font-family: var(--hand);
 
   font-size:
     clamp(
-      47px,
+      44px,
       8vw,
-      86px
+      82px
     );
 
   font-weight: 400;
 
-  letter-spacing: .13em;
+  letter-spacing: .10em;
 
   opacity: 0;
 
@@ -1900,7 +1978,8 @@ button {
     translateY(15px)
     scale(.92);
 
-  filter: blur(10px);
+  filter:
+    blur(10px);
 
   text-shadow:
     0 0 35px
@@ -1934,7 +2013,8 @@ button {
       translateY(0)
       scale(1);
 
-    filter: blur(0);
+    filter:
+      blur(0);
   }
 }
 
@@ -1946,23 +2026,29 @@ button {
       translateY(-10px)
       scale(1.06);
 
-    filter: blur(8px);
+    filter:
+      blur(8px);
   }
 }
 
 
-/* final message */
+/* =========================================================
+   FINAL MESSAGE
+========================================================= */
 
 #finalMessage {
-  display: flex;
+  position: absolute;
+  inset: 0;
 
+  display: flex;
   flex-direction: column;
 
   align-items: center;
   justify-content: center;
 
   padding:
-    45px 30px;
+    45px
+    30px;
 
   text-align: center;
 
@@ -1987,27 +2073,21 @@ button {
 .final-happy {
   margin-bottom: 30px;
 
-  font-family:
-    "Kaiti SC",
-    "STKaiti",
-    "KaiTi",
-    "楷体",
-    "DFKai-SB",
-    serif;
+  font-family: var(--hand);
 
   font-size:
     clamp(
-      39px,
+      37px,
       6vw,
-      68px
+      65px
     );
 
   font-weight: 400;
 
-  letter-spacing: .15em;
+  letter-spacing: .10em;
 
   color:
-    rgba(255,255,255,.97);
+    rgba(255,255,255,.96);
 
   text-shadow:
     0 0 35px
@@ -2019,65 +2099,51 @@ button {
 
 
 .final-copy {
-  font-family:
-    "Kaiti SC",
-    "STKaiti",
-    "KaiTi",
-    "楷体",
-    "DFKai-SB",
-    serif;
+  font-family: var(--hand);
 
   font-size:
     clamp(
-      17px,
-      2.2vw,
-      23px
+      16px,
+      2.15vw,
+      22px
     );
 
   font-weight: 400;
 
-  line-height: 2.1;
+  line-height: 2.05;
 
-  letter-spacing: .07em;
+  letter-spacing: .025em;
 
   color:
-    rgba(244,247,255,.84);
+    rgba(244,247,255,.82);
 }
 
 
 .final-small {
-  margin-top: 23px;
+  margin-top: 22px;
 
-  font-family:
-    "Kaiti SC",
-    "STKaiti",
-    "KaiTi",
-    "楷体",
-    "DFKai-SB",
-    serif;
+  font-family: var(--hand);
 
   font-size:
     clamp(
-      15px,
+      14px,
       1.8vw,
-      19px
+      18px
     );
 
-  letter-spacing: .07em;
+  font-weight: 400;
+
+  letter-spacing: .025em;
 
   color:
-    rgba(245,247,255,.72);
+    rgba(245,247,255,.70);
 }
 
 
 .final-ending {
   margin-top: 38px;
 
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "SF Pro Display",
-    sans-serif;
+  font-family: var(--ui);
 
   font-size: 10px;
 
@@ -2098,7 +2164,7 @@ button {
     background-size:
       34px 34px;
 
-    opacity: .04;
+    opacity: .045;
   }
 
 
@@ -2164,12 +2230,14 @@ button {
   .story-line {
     font-size:
       clamp(
-        19px,
-        5.2vw,
-        24px
+        18px,
+        5.1vw,
+        23px
       );
 
-    line-height: 2;
+    line-height: 1.95;
+
+    letter-spacing: .02em;
   }
 
 
@@ -2177,10 +2245,12 @@ button {
   .story-line {
     font-size:
       clamp(
-        80px,
+        76px,
         25vw,
-        120px
+        116px
       );
+
+    letter-spacing: .06em;
   }
 
 
@@ -2188,15 +2258,22 @@ button {
   .story-line:first-child {
     font-size:
       clamp(
-        38px,
+        37px,
         11vw,
-        54px
+        52px
       );
+  }
+
+
+  #letterCard[data-mode="quiet"]
+  .story-line {
+    letter-spacing: .025em;
   }
 
 
   #eyebrow {
     font-size: 9px;
+
     letter-spacing: .36em;
   }
 
@@ -2217,6 +2294,7 @@ button {
     transform-origin:
       right bottom;
   }
+
 
   #player.show {
     transform:
@@ -2260,8 +2338,22 @@ button {
   }
 
 
+  .final-word {
+    letter-spacing: .08em;
+  }
+
+
   .final-copy {
-    font-size: 17px;
+    font-size: 16px;
+
+    line-height: 2.05;
+
+    letter-spacing: .02em;
+  }
+
+
+  .final-small {
+    letter-spacing: .02em;
   }
 
 
@@ -2292,6 +2384,7 @@ button {
     left: 62px;
   }
 
+
   .env-line.right {
     right: 62px;
   }
@@ -2302,6 +2395,7 @@ button {
       rotate(-5deg)
       scale(.69);
   }
+
 
   #player.show {
     transform:
@@ -2338,6 +2432,7 @@ button {
       rotate(-5deg)
       scale(.66);
   }
+
 
   #player.show {
     transform:
@@ -2380,6 +2475,8 @@ button {
 <div id="app">
 
 
+  <!-- 星空 -->
+
   <div class="nebula a"></div>
   <div class="nebula b"></div>
   <div class="nebula c"></div>
@@ -2420,7 +2517,6 @@ button {
       <span class="env-front"></span>
 
       <span class="env-line left"></span>
-
       <span class="env-line right"></span>
 
     </button>
@@ -2450,11 +2546,20 @@ button {
       <span class="glass-corner br"></span>
 
 
-      <div id="ring1" class="ring"></div>
+      <div
+        id="ring1"
+        class="ring"
+      ></div>
 
-      <div id="ring2" class="ring second"></div>
+      <div
+        id="ring2"
+        class="ring second"
+      ></div>
 
-      <div id="ring3" class="ring third"></div>
+      <div
+        id="ring3"
+        class="ring third"
+      ></div>
 
 
       <div id="glassRipple"></div>
@@ -2524,9 +2629,7 @@ button {
       >
 
         <span class="arm-base"></span>
-
         <span class="arm-stick"></span>
-
         <span class="arm-head"></span>
 
       </div>
@@ -2578,22 +2681,34 @@ button {
           </div>
 
 
-          <div class="final-word" id="word1">
+          <div
+            class="final-word"
+            id="word1"
+          >
             自由。
           </div>
 
 
-          <div class="final-word" id="word2">
+          <div
+            class="final-word"
+            id="word2"
+          >
             勇敢。
           </div>
 
 
-          <div class="final-word" id="word3">
+          <div
+            class="final-word"
+            id="word3"
+          >
             开心。
           </div>
 
 
-          <div class="final-word" id="word4">
+          <div
+            class="final-word"
+            id="word4"
+          >
             被爱。
           </div>
 
@@ -2650,7 +2765,7 @@ button {
 
 
 /* =========================================================
-   STORY
+   文案
 ========================================================= */
 
 const slides = [
@@ -2827,6 +2942,8 @@ const flash =
   document.getElementById("flash");
 
 
+/* MUSIC */
+
 const player =
   document.getElementById("player");
 
@@ -2848,6 +2965,8 @@ const musicState =
 const music =
   document.getElementById("music");
 
+
+/* FINAL */
 
 const finalScene =
   document.getElementById("finalScene");
@@ -2877,12 +2996,13 @@ const finalWordEls = [
 ];
 
 
+/* CANVAS */
+
 const fxCanvas =
   document.getElementById("fxCanvas");
 
 const fx =
   fxCanvas.getContext("2d");
-
 
 const constellationCanvas =
   document.getElementById("constellationCanvas");
@@ -2919,7 +3039,6 @@ let bursts = [];
 
 let collapseParticles = [];
 
-
 let constellationPulse = 0;
 
 let constellationOpacity = .82;
@@ -2934,11 +3053,18 @@ const reducedMotion =
 
 
 /* =========================================================
-   VIRGO STAR DATA
+   VIRGO
+
+   RA = 赤经（小时）
+   DEC = 赤纬（度）
+   MAG = 视星等
+
+   星位按真实 RA / DEC 进行平面投影。
 ========================================================= */
 
 const virgoStars = {
 
+  /* β Vir · Zavijava */
   beta: {
     ra: 11.844922,
     dec: 1.764717,
@@ -2946,6 +3072,7 @@ const virgoStars = {
   },
 
 
+  /* η Vir · Zaniah */
   eta: {
     ra: 12.331765,
     dec: -0.666793,
@@ -2953,6 +3080,7 @@ const virgoStars = {
   },
 
 
+  /* γ Vir · Porrima */
   gamma: {
     ra: 12.694345,
     dec: -1.449373,
@@ -2960,6 +3088,7 @@ const virgoStars = {
   },
 
 
+  /* δ Vir · Auva */
   delta: {
     ra: 12.92672,
     dec: 3.3975,
@@ -2967,6 +3096,7 @@ const virgoStars = {
   },
 
 
+  /* ε Vir · Vindemiatrix */
   epsilon: {
     ra: 13.036277,
     dec: 10.959149,
@@ -2974,6 +3104,7 @@ const virgoStars = {
   },
 
 
+  /* θ Vir */
   theta: {
     ra: 13.166,
     dec: -5.54,
@@ -2981,6 +3112,7 @@ const virgoStars = {
   },
 
 
+  /* α Vir · Spica / 角宿一 */
   alpha: {
     ra: 13.419883,
     dec: -11.161319,
@@ -2988,6 +3120,7 @@ const virgoStars = {
   },
 
 
+  /* ζ Vir · Heze */
   zeta: {
     ra: 13.57822,
     dec: -0.59582,
@@ -2995,6 +3128,7 @@ const virgoStars = {
   },
 
 
+  /* ι Vir · Syrma */
   iota: {
     ra: 14.266908,
     dec: -6.000545,
@@ -3002,6 +3136,7 @@ const virgoStars = {
   },
 
 
+  /* μ Vir */
   mu: {
     ra: 14.718,
     dec: -5.66,
@@ -3011,9 +3146,12 @@ const virgoStars = {
 };
 
 
-/* =========================================================
-   VIRGO PATHS
-========================================================= */
+/*
+  常见简化骨架。
+
+  星点相对位置来自实际 RA/Dec，
+  连线本身只是用于视觉辨识。
+*/
 
 const virgoPaths = [
 
@@ -3055,7 +3193,6 @@ function resizeCanvas() {
   W =
     rect.width;
 
-
   H =
     rect.height;
 
@@ -3072,20 +3209,16 @@ function resizeCanvas() {
       W * DPR
     );
 
-
   fxCanvas.height =
     Math.round(
       H * DPR
     );
 
-
   fxCanvas.style.width =
     W + "px";
 
-
   fxCanvas.style.height =
     H + "px";
-
 
   fx.setTransform(
     DPR,
@@ -3102,20 +3235,16 @@ function resizeCanvas() {
       W * DPR
     );
 
-
   constellationCanvas.height =
     Math.round(
       H * DPR
     );
 
-
   constellationCanvas.style.width =
     W + "px";
 
-
   constellationCanvas.style.height =
     H + "px";
-
 
   starCtx.setTransform(
     DPR,
@@ -3133,7 +3262,7 @@ function resizeCanvas() {
 
 
 /* =========================================================
-   BACKGROUND UNIVERSE
+   UNIVERSE
 ========================================================= */
 
 function createUniverse() {
@@ -3189,18 +3318,23 @@ function createUniverse() {
           Math.random() * .62,
 
         phase:
-          Math.random() *
-          Math.PI *
+          Math.random()
+          *
+          Math.PI
+          *
           2,
 
         vx:
-          (Math.random() - .5) *
+          (Math.random() - .5)
+          *
           .075,
 
         vy:
           -.02 -
-          Math.random() *
+          Math.random()
+          *
           .09
+
       })
     );
 
@@ -3228,17 +3362,20 @@ function createUniverse() {
           Math.random() * .14,
 
         vx:
-          (Math.random() - .5) *
+          (Math.random() - .5)
+          *
           .055,
 
         vy:
-          (Math.random() - .5) *
+          (Math.random() - .5)
+          *
           .055,
 
         color:
           Math.random() > .5
             ? "#73d8ff"
             : "#ae83ff"
+
       })
     );
 
@@ -3272,6 +3409,7 @@ function createUniverse() {
         alpha:
           .035 +
           Math.random() * .11
+
       })
     );
 
@@ -3279,7 +3417,7 @@ function createUniverse() {
 
 
 /* =========================================================
-   EXPLOSION
+   PARTICLE EXPLOSION
 ========================================================= */
 
 function explode(
@@ -3319,8 +3457,10 @@ function explode(
 
     const angle =
       Math.random()
-      * Math.PI
-      * 2;
+      *
+      Math.PI
+      *
+      2;
 
 
     const speed =
@@ -3338,18 +3478,21 @@ function explode(
 
       vx:
         Math.cos(angle)
-        * speed,
+        *
+        speed,
 
       vy:
         Math.sin(angle)
-        * speed,
+        *
+        speed,
 
       life: 1,
 
       decay:
         .008 +
         Math.random()
-        * .018,
+        *
+        .018,
 
       size:
         .7 +
@@ -3360,6 +3503,7 @@ function explode(
       color:
         Math.random() < .27
           ? "#ffffff"
+
           : Math.random() < .52
             ? "#77dfff"
             : "#b18aff",
@@ -3389,7 +3533,6 @@ function collapseUniverse() {
 
   const centerX =
     W / 2;
-
 
   const centerY =
     H / 2;
@@ -3425,11 +3568,13 @@ function collapseUniverse() {
       x =
         Math.random() * W;
 
-      y = -20;
+      y =
+        -20;
 
     } else if (side === 1) {
 
-      x = W + 20;
+      x =
+        W + 20;
 
       y =
         Math.random() * H;
@@ -3439,14 +3584,17 @@ function collapseUniverse() {
       x =
         Math.random() * W;
 
-      y = H + 20;
+      y =
+        H + 20;
 
     } else {
 
-      x = -20;
+      x =
+        -20;
 
       y =
         Math.random() * H;
+
     }
 
 
@@ -3458,19 +3606,22 @@ function collapseUniverse() {
       tx:
         centerX +
         (Math.random() - .5)
-        * 35,
+        *
+        35,
 
       ty:
         centerY +
         (Math.random() - .5)
-        * 35,
+        *
+        35,
 
       life: 1,
 
       size:
         .8 +
         Math.random()
-        * 2.8,
+        *
+        2.8,
 
       color:
         Math.random() > .5
@@ -3500,45 +3651,49 @@ function drawFX() {
 
   const t =
     performance.now()
-    / 1000;
+    /
+    1000;
 
+
+  /* floating dust */
 
   for (const p of dust) {
 
-    p.x += p.vx;
-    p.y += p.vy;
+    p.x +=
+      p.vx;
+
+    p.y +=
+      p.vy;
 
 
     if (p.x < -10) {
-      p.x = W + 10;
+      p.x =
+        W + 10;
     }
-
 
     if (p.x > W + 10) {
-      p.x = -10;
+      p.x =
+        -10;
     }
-
 
     if (p.y < -10) {
-      p.y = H + 10;
+      p.y =
+        H + 10;
     }
 
-
     if (p.y > H + 10) {
-      p.y = -10;
+      p.y =
+        -10;
     }
 
 
     fx.globalAlpha =
       p.alpha;
 
-
     fx.fillStyle =
       p.color;
 
-
     fx.beginPath();
-
 
     fx.arc(
       p.x,
@@ -3548,16 +3703,20 @@ function drawFX() {
       Math.PI * 2
     );
 
-
     fx.fill();
 
   }
 
 
+  /* stars */
+
   for (const s of stars) {
 
-    s.x += s.vx;
-    s.y += s.vy;
+    s.x +=
+      s.vx;
+
+    s.y +=
+      s.vy;
 
 
     if (s.y < -8) {
@@ -3565,24 +3724,29 @@ function drawFX() {
       s.y =
         H + 8;
 
-
       s.x =
-        Math.random() * W;
+        Math.random()
+        *
+        W;
 
     }
 
 
     const blink =
-      .50 +
-      .50 *
+      .50
+      +
+      .50
+      *
       Math.sin(
-        t * 1.55 +
+        t * 1.55
+        +
         s.phase
       );
 
 
     fx.globalAlpha =
-      s.alpha *
+      s.alpha
+      *
       blink;
 
 
@@ -3592,7 +3756,6 @@ function drawFX() {
 
     fx.beginPath();
 
-
     fx.arc(
       s.x,
       s.y,
@@ -3601,39 +3764,46 @@ function drawFX() {
       Math.PI * 2
     );
 
-
     fx.fill();
 
   }
 
+
+  /* comets */
 
   for (const c of comets) {
 
     c.x +=
       Math.cos(
         c.angle
-      ) *
+      )
+      *
       c.speed;
 
 
     c.y +=
       Math.sin(
         c.angle
-      ) *
+      )
+      *
       c.speed;
 
 
     if (
-      c.x > W + 120 ||
+      c.x > W + 120
+      ||
       c.y < -120
     ) {
 
-      c.x = -100;
-
+      c.x =
+        -100;
 
       c.y =
-        H +
-        Math.random() * 180;
+        H
+        +
+        Math.random()
+        *
+        180;
 
     }
 
@@ -3698,6 +3868,8 @@ function drawFX() {
   }
 
 
+  /* explosion */
+
   bursts =
     bursts.filter(
       p =>
@@ -3707,11 +3879,19 @@ function drawFX() {
 
   for (const p of bursts) {
 
-    p.x += p.vx;
-    p.y += p.vy;
+    p.x +=
+      p.vx;
 
-    p.vx *= .979;
-    p.vy *= .979;
+    p.y +=
+      p.vy;
+
+
+    p.vx *=
+      .979;
+
+    p.vy *=
+      .979;
+
 
     p.life -=
       p.decay;
@@ -3738,8 +3918,11 @@ function drawFX() {
 
 
       fx.moveTo(
-        p.x - p.vx * 4,
-        p.y - p.vy * 4
+        p.x -
+        p.vx * 4,
+
+        p.y -
+        p.vy * 4
       );
 
 
@@ -3776,6 +3959,8 @@ function drawFX() {
   }
 
 
+  /* final collapse */
+
   collapseParticles =
     collapseParticles.filter(
       p =>
@@ -3786,13 +3971,21 @@ function drawFX() {
   for (const p of collapseParticles) {
 
     p.x +=
-      (p.tx - p.x)
-      * .055;
+      (
+        p.tx -
+        p.x
+      )
+      *
+      .055;
 
 
     p.y +=
-      (p.ty - p.y)
-      * .055;
+      (
+        p.ty -
+        p.y
+      )
+      *
+      .055;
 
 
     p.life *=
@@ -3836,7 +4029,14 @@ function drawFX() {
 
 
 /* =========================================================
-   VIRGO PROJECTION
+   VIRGO REAL PROJECTION
+
+   1h RA = 15°
+   北朝上
+   东朝左
+
+   只做等比缩放和平移，
+   不人为旋转星图。
 ========================================================= */
 
 function projectVirgo(
@@ -3865,40 +4065,29 @@ function projectVirgo(
     anchorRect.height;
 
 
-  /*
-    RA 是小时。
-    1h = 15°。
-  */
-
   const source =
     Object.entries(
       virgoStars
     )
     .map(
-      ([key, star]) => {
+      ([key,star]) => ({
+        key,
 
-        return {
+        ra:
+          star.ra * 15,
 
-          key,
+        dec:
+          star.dec,
 
-          ra:
-            star.ra * 15,
-
-          dec:
-            star.dec,
-
-          mag:
-            star.mag
-
-        };
-
-      }
+        mag:
+          star.mag
+      })
     );
 
 
   const centerRA =
     source.reduce(
-      (sum, s) =>
+      (sum,s) =>
         sum + s.ra,
       0
     )
@@ -3908,7 +4097,7 @@ function projectVirgo(
 
   const centerDec =
     source.reduce(
-      (sum, s) =>
+      (sum,s) =>
         sum + s.dec,
       0
     )
@@ -3926,11 +4115,6 @@ function projectVirgo(
     );
 
 
-  /*
-    北朝上，
-    东朝左。
-  */
-
   const projected =
     source.map(
       star => ({
@@ -3941,6 +4125,10 @@ function projectVirgo(
         mag:
           star.mag,
 
+        /*
+          east left
+        */
+
         x:
           -(
             star.ra -
@@ -3948,6 +4136,10 @@ function projectVirgo(
           )
           *
           cosDec,
+
+        /*
+          north up
+        */
 
         y:
           -(
@@ -3976,18 +4168,15 @@ function projectVirgo(
       ...xs
     );
 
-
   const maxX =
     Math.max(
       ...xs
     );
 
-
   const minY =
     Math.min(
       ...ys
     );
-
 
   const maxY =
     Math.max(
@@ -3996,11 +4185,12 @@ function projectVirgo(
 
 
   const rawW =
-    maxX - minX;
-
+    maxX -
+    minX;
 
   const rawH =
-    maxY - minY;
+    maxY -
+    minY;
 
 
   const mobile =
@@ -4008,7 +4198,8 @@ function projectVirgo(
 
 
   const paddingX =
-    boxW *
+    boxW
+    *
     (
       mobile
         ? .11
@@ -4017,7 +4208,8 @@ function projectVirgo(
 
 
   const paddingY =
-    boxH *
+    boxH
+    *
     (
       mobile
         ? .13
@@ -4043,12 +4235,21 @@ function projectVirgo(
 
 
   const drawW =
-    rawW * scale;
+    rawW
+    *
+    scale;
 
 
   const drawH =
-    rawH * scale;
+    rawH
+    *
+    scale;
 
+
+  /*
+    只是轻微整体平移，
+    不改变星座形状。
+  */
 
   const horizontalShift =
     mobile
@@ -4063,22 +4264,28 @@ function projectVirgo(
 
 
   const startX =
-    boxX +
+    boxX
+    +
     (
       boxW -
       drawW
-    ) /
-    2 +
+    )
+    /
+    2
+    +
     horizontalShift;
 
 
   const startY =
-    boxY +
+    boxY
+    +
     (
       boxH -
       drawH
-    ) /
-    2 +
+    )
+    /
+    2
+    +
     verticalShift;
 
 
@@ -4091,19 +4298,23 @@ function projectVirgo(
       result[p.key] = {
 
         x:
-          startX +
+          startX
+          +
           (
             p.x -
             minX
-          ) *
+          )
+          *
           scale,
 
         y:
-          startY +
+          startY
+          +
           (
             p.y -
             minY
-          ) *
+          )
+          *
           scale,
 
         mag:
@@ -4142,6 +4353,11 @@ function drawConstellation() {
     *
     .03;
 
+
+  /*
+    普通页面绑定正文玻璃。
+    最后一页绑定 finalGlass。
+  */
 
   let anchorRect;
 
@@ -4201,9 +4417,9 @@ function drawConstellation() {
     constellationOpacity;
 
 
-  /*
-    连线
-  */
+  /* -------------------------------------------------------
+     连线
+  ------------------------------------------------------- */
 
   for (
     const path
@@ -4217,11 +4433,15 @@ function drawConstellation() {
     ) {
 
       const p1 =
-        points[path[i]];
+        points[
+          path[i]
+        ];
 
 
       const p2 =
-        points[path[i + 1]];
+        points[
+          path[i + 1]
+        ];
 
 
       if (
@@ -4300,24 +4520,26 @@ function drawConstellation() {
   }
 
 
-  /*
-    星点
-  */
+  /* -------------------------------------------------------
+     星点
+  ------------------------------------------------------- */
 
   Object.entries(
     points
   )
   .forEach(
     (
-      [key, p],
+      [key,p],
       index
     ) => {
 
 
       const breathe =
-        .72 +
+        .72
+        +
         Math.sin(
-          time * 1.25 +
+          time * 1.25
+          +
           index * .73
         )
         *
@@ -4325,15 +4547,22 @@ function drawConstellation() {
 
 
       const clickPulse =
-        constellationPulse *
+        constellationPulse
+        *
         (
-          1 +
-          .20 *
+          1
+          +
+          .20
+          *
           Math.sin(
             index * 1.7
           )
         );
 
+
+      /*
+        星等越小越亮
+      */
 
       const brightness =
         Math.max(
@@ -4344,22 +4573,30 @@ function drawConstellation() {
 
 
       const baseRadius =
-        1.15 +
-        brightness *
+        1.15
+        +
+        brightness
+        *
         .62;
 
 
       const radius =
-        baseRadius +
-        clickPulse *
+        baseRadius
+        +
+        clickPulse
+        *
         1.15;
 
 
       const glowSize =
-        10 +
-        brightness *
-        4 +
-        clickPulse *
+        10
+        +
+        brightness
+        *
+        4
+        +
+        clickPulse
+        *
         18;
 
 
@@ -4435,8 +4672,10 @@ function drawConstellation() {
 
 
       starCtx.shadowBlur =
-        10 +
-        clickPulse *
+        10
+        +
+        clickPulse
+        *
         10;
 
 
@@ -4462,6 +4701,10 @@ function drawConstellation() {
 
       starCtx.fill();
 
+
+      /*
+        Spica 是 Virgo 最亮星。
+      */
 
       if (
         key === "alpha"
@@ -4503,9 +4746,9 @@ function drawConstellation() {
   );
 
 
-  /*
-    VIRGO 标签
-  */
+  /* -------------------------------------------------------
+     VIRGO LABEL
+  ------------------------------------------------------- */
 
   const spica =
     points.alpha;
@@ -4518,7 +4761,8 @@ function drawConstellation() {
 
 
     starCtx.globalAlpha =
-      constellationOpacity *
+      constellationOpacity
+      *
       .32;
 
 
@@ -4558,7 +4802,7 @@ function drawConstellation() {
 
 
 /* =========================================================
-   FLASH
+   UI FX
 ========================================================= */
 
 function flashAt(
@@ -4566,36 +4810,32 @@ function flashAt(
   y
 ) {
 
-  flash.style
-    .setProperty(
-      "--flash-x",
-      `${x / W * 100}%`
-    );
+  flash.style.setProperty(
+    "--flash-x",
+    `${x / W * 100}%`
+  );
 
 
-  flash.style
-    .setProperty(
-      "--flash-y",
-      `${y / H * 100}%`
-    );
+  flash.style.setProperty(
+    "--flash-y",
+    `${y / H * 100}%`
+  );
 
 
-  flash.classList
-    .remove("boom");
+  flash.classList.remove(
+    "boom"
+  );
 
 
   void flash.offsetWidth;
 
 
-  flash.classList
-    .add("boom");
+  flash.classList.add(
+    "boom"
+  );
 
 }
 
-
-/* =========================================================
-   RINGS
-========================================================= */
 
 function ringBlast() {
 
@@ -4606,23 +4846,26 @@ function ringBlast() {
   ]
   .forEach(
     ring =>
-      ring.classList
-        .remove("go")
+      ring.classList.remove(
+        "go"
+      )
   );
 
 
   void ring1.offsetWidth;
 
 
-  ring1.classList
-    .add("go");
+  ring1.classList.add(
+    "go"
+  );
 
 
   setTimeout(
     () => {
 
-      ring2.classList
-        .add("go");
+      ring2.classList.add(
+        "go"
+      );
 
     },
     70
@@ -4632,8 +4875,9 @@ function ringBlast() {
   setTimeout(
     () => {
 
-      ring3.classList
-        .add("go");
+      ring3.classList.add(
+        "go"
+      );
 
     },
     145
@@ -4642,18 +4886,13 @@ function ringBlast() {
 }
 
 
-/* =========================================================
-   GLASS WAVE
-========================================================= */
-
 function glassWave(
   clientX,
   clientY
 ) {
 
   const rect =
-    card
-    .getBoundingClientRect();
+    card.getBoundingClientRect();
 
 
   const x =
@@ -4674,21 +4913,23 @@ function glassWave(
     y + "px";
 
 
-  ripple.classList
-    .remove("go");
+  ripple.classList.remove(
+    "go"
+  );
 
 
   void ripple.offsetWidth;
 
 
-  ripple.classList
-    .add("go");
+  ripple.classList.add(
+    "go"
+  );
 
 }
 
 
 /* =========================================================
-   STORY RENDER
+   SLIDES
 ========================================================= */
 
 function renderSlide(
@@ -4765,8 +5006,7 @@ function goNext(
 
 
   const appRect =
-    app
-    .getBoundingClientRect();
+    app.getBoundingClientRect();
 
 
   const x =
@@ -4821,8 +5061,9 @@ function goNext(
     true;
 
 
-  card.classList
-    .add("leaving");
+  card.classList.add(
+    "leaving"
+  );
 
 
   eyebrow.style.opacity =
@@ -4840,8 +5081,9 @@ function goNext(
       );
 
 
-      card.classList
-        .remove("leaving");
+      card.classList.remove(
+        "leaving"
+      );
 
 
       eyebrow.style.opacity =
@@ -4888,18 +5130,17 @@ envelope.addEventListener(
       true;
 
 
-    envelope.classList
-      .add("open");
+    envelope.classList.add(
+      "open"
+    );
 
 
     const er =
-      envelope
-      .getBoundingClientRect();
+      envelope.getBoundingClientRect();
 
 
     const ar =
-      app
-      .getBoundingClientRect();
+      app.getBoundingClientRect();
 
 
     const x =
@@ -4941,8 +5182,9 @@ envelope.addEventListener(
     setTimeout(
       () => {
 
-        intro.classList
-          .add("leave");
+        intro.classList.add(
+          "leave"
+        );
 
       },
       490
@@ -4956,15 +5198,19 @@ envelope.addEventListener(
           "none";
 
 
-        story.classList
-          .add("show");
+        story.classList.add(
+          "show"
+        );
 
 
-        player.classList
-          .add("show");
+        player.classList.add(
+          "show"
+        );
 
 
-        renderSlide(0);
+        renderSlide(
+          0
+        );
 
       },
       1220
@@ -4982,18 +5228,16 @@ function setMusicState(
   playing
 ) {
 
-  vinyl.classList
-    .toggle(
-      "playing",
-      playing
-    );
+  vinyl.classList.toggle(
+    "playing",
+    playing
+  );
 
 
-  tonearm.classList
-    .toggle(
-      "playing",
-      playing
-    );
+  tonearm.classList.toggle(
+    "playing",
+    playing
+  );
 
 
   musicState.textContent =
@@ -5002,14 +5246,13 @@ function setMusicState(
       : "PLAY";
 
 
-  musicButton
-    .setAttribute(
-      "aria-label",
+  musicButton.setAttribute(
+    "aria-label",
 
-      playing
-        ? "暂停音乐"
-        : "播放音乐"
-    );
+    playing
+      ? "暂停音乐"
+      : "播放音乐"
+  );
 
 
   if (playing) {
@@ -5147,6 +5390,10 @@ async function startFinale() {
     "0";
 
 
+  /*
+    最后一页先安静下来。
+  */
+
   constellationTargetOpacity =
     .16;
 
@@ -5175,11 +5422,14 @@ async function startFinale() {
   );
 
 
-  card.classList
-    .add("shatter");
+  card.classList.add(
+    "shatter"
+  );
 
 
-  await wait(650);
+  await wait(
+    650
+  );
 
 
   story.style.opacity =
@@ -5190,33 +5440,41 @@ async function startFinale() {
     "none";
 
 
-  finalScene.classList
-    .add("show");
+  finalScene.classList.add(
+    "show"
+  );
 
 
-  await wait(180);
+  await wait(
+    180
+  );
 
 
-  finalGlass.classList
-    .add("show");
+  finalGlass.classList.add(
+    "show"
+  );
 
 
-  await wait(650);
+  await wait(
+    650
+  );
 
 
-  /*
-    巨大 23
-  */
+  /* 巨大的 23 */
 
-  giant23.classList
-    .add("show");
-
-
-  await wait(1750);
+  giant23.classList.add(
+    "show"
+  );
 
 
-  giant23.classList
-    .add("leave");
+  await wait(
+    1750
+  );
+
+
+  giant23.classList.add(
+    "leave"
+  );
 
 
   explode(
@@ -5230,27 +5488,28 @@ async function startFinale() {
     2.2;
 
 
-  await wait(780);
+  await wait(
+    780
+  );
 
 
   giant23.style.display =
     "none";
 
 
-  /*
-    愿23岁的你
-  */
+  /* 愿23岁的你 */
 
-  finalLead.classList
-    .add("show");
-
-
-  await wait(850);
+  finalLead.classList.add(
+    "show"
+  );
 
 
-  /*
-    自由 / 勇敢 / 开心 / 被爱
-  */
+  await wait(
+    850
+  );
+
+
+  /* 自由 / 勇敢 / 开心 / 被爱 */
 
   for (
     let i = 0;
@@ -5262,8 +5521,9 @@ async function startFinale() {
       finalWordEls[i];
 
 
-    word.classList
-      .add("show");
+    word.classList.add(
+      "show"
+    );
 
 
     constellationPulse =
@@ -5287,17 +5547,23 @@ async function startFinale() {
       35,
 
       false
+
     );
 
 
-    await wait(1000);
+    await wait(
+      1000
+    );
 
 
-    word.classList
-      .add("hide");
+    word.classList.add(
+      "hide"
+    );
 
 
-    await wait(500);
+    await wait(
+      500
+    );
 
   }
 
@@ -5306,7 +5572,9 @@ async function startFinale() {
     "0";
 
 
-  await wait(700);
+  await wait(
+    700
+  );
 
 
   finalWordEls.forEach(
@@ -5320,11 +5588,13 @@ async function startFinale() {
 
 
   /*
-    最后安静下来
+    最后一段不再炸。
+    就停在这里。
   */
 
-  finalMessage.classList
-    .add("show");
+  finalMessage.classList.add(
+    "show"
+  );
 
 
   constellationTargetOpacity =
@@ -5350,7 +5620,9 @@ window.addEventListener(
 );
 
 
-renderSlide(0);
+renderSlide(
+  0
+);
 
 
 drawFX();
